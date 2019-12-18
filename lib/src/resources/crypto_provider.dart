@@ -21,7 +21,7 @@ class CryptoProvider implements HttpProvider {
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load full balance data');
+      throw Exception('Error: ${response.body}');
     }
   }
 
@@ -36,7 +36,7 @@ class CryptoProvider implements HttpProvider {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('Failed transaction');
+      throw Exception('Error: ${response.body}');
     }
   }
 }
