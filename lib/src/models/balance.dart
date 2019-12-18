@@ -27,7 +27,7 @@ class Balance {
       finalBalance: json['final_balance'],
       totalReceived: json['total_received'],
       totalSent: json['total_sent'],
-      txCount: json['txCount'],
+      txCount: json['tx_count'],
       txs: List.of(json['txs']).map((tx) => Transaction.fromJson(tx)).toList(),
     );
   }
