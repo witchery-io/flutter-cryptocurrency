@@ -71,7 +71,7 @@ class Btc implements Coin {
     balance.txs.asMap().forEach((index, tx) {
       tx.outputs.asMap().forEach((index, output) {
         if (output.addresses.contains(_hdWallet.address) &&
-            output.spentBy == null) {
+            output.spentBy.isEmpty) {
           outputs.add({'hash': tx.hash, 'index': index});
         }
       });
@@ -88,6 +88,7 @@ class Btc implements Coin {
     );
 
     tx.build();
-    await crypto.pushTx(currency, tx.txHex);
+    print(tx.txHex);
+//    await crypto.pushTx(currency, tx.txHex);
   }
 }
