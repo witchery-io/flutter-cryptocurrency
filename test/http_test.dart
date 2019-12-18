@@ -16,8 +16,8 @@ void main() {
         .thenAnswer((_) async => response);
   }
 
-  void stubPost(String url, Response response) { // Response
-    when(http.post(argThat(startsWith(url)), body: anyNamed('body')))
+  void stubPost(String url, Response response, headers) { // Response
+    when(http.post(argThat(startsWith(url)), body: anyNamed('body'), headers: headers))
         .thenAnswer((_) async => response);
   }
 
@@ -40,13 +40,13 @@ void main() {
   });
 
   test('Push Transaction', () {
-    stubPost(crypto.baseUrl, Response(json.encode("Success"), 200));
+    stubPost(crypto.baseUrl, Response(json.encode("Success"), 200), {"Content-Type": "application/json"});
     final result = crypto.pushTx('btc', '010000000139574f053cd3e24d679950a7b66184c414767bb67bb536820f933cf8468f6451000000006b483045022100c72dd917a20106c78a5d70f79e76869d4ca91fada3ec2941e6197f948b86f8b902201bd2dc260273a928fb7a14387ac0af14f63773146f8e5394efdc17bec76b8eda01210347826e3b53185da5417b07785053759fa7e5a3a54dce0cb5d5f3c64f9e7e1d8cffffffff0210ad4b00000000001976a9140e4a59058a77c06195c2ee8e0fe4ce0bef05dfb688ac7b680300000000001976a914cca91d6fe8d5f0ad4ccf3a672fa7f4ec72e36d4988ac00000000');
     expect(result, completion('Success'));
   });
 
   test('[Error] push tx server status 500', () async {
-    stubPost(crypto.baseUrl, Response('Failed tx', 500));
+    stubPost(crypto.baseUrl, Response('Failed tx', 500), {"Content-Type": "application/json"});
     expect(crypto.pushTx('btc', '010000000139574f053cd3e24d679950a7b66184c414767bb67bb536820f933cf8468f6451000000006b483045022100c72dd917a20106c78a5d70f79e76869d4ca91fada3ec2941e6197f948b86f8b902201bd2dc260273a928fb7a14387ac0af14f63773146f8e5394efdc17bec76b8eda01210347826e3b53185da5417b07785053759fa7e5a3a54dce0cb5d5f3c64f9e7e1d8cffffffff0210ad4b00000000001976a9140e4a59058a77c06195c2ee8e0fe4ce0bef05dfb688ac7b680300000000001976a914cca91d6fe8d5f0ad4ccf3a672fa7f4ec72e36d4988ac00000000'), throwsException);
   });
 
