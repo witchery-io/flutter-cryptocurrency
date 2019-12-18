@@ -1,0 +1,33 @@
+name: multi_currency
+description: A new Flutter package project.
+version: 0.0.1
+author: Eduard Grigoryan
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bip32: ^1.0.5
+  bip39: ^1.0.3
+  bitcoin_flutter: ^1.0.7
+  web3dart: ^1.2.1
+  eosdart: ^0.4.3
+  eosdart_ecc: ^0.4.0
+  mockito: ^4.1.1
+  font_awesome_flutter: ^8.5.0
+  inject:
+    git:
+      url: https://github.com/google/inject.dart
+      path: package/inject
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^1.2.2
+  test_coverage: ^0.4.0
+  inject_generator:
+    git:
+      url: https://github.com/google/inject.dart
+      path: package/inject_generator
+flutter:
