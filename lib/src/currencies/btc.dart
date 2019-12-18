@@ -88,7 +88,6 @@ class Btc implements Coin {
     );
 
     tx.build();
-    print(tx.txHex);
-//    await crypto.pushTx(currency, tx.txHex);
+    await crypto.pushTx(currency, tx.txHex);
   }
 }
