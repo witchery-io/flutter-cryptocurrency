@@ -1,4 +1,4 @@
-import 'package:bip32/bip32.dart' as BIP32;
+import 'package:bip32/bip32.dart' as bip32;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hex/hex.dart';
@@ -8,18 +8,18 @@ import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 
 class Eth implements Coin {
-  BIP32.BIP32 _node;
-  BIP32.BIP32 _hdWallet;
+  bip32.BIP32 _node;
+  bip32.BIP32 _hdWallet;
 
   CryptoProvider crypto;
 
-  get name => 'eth';
+  String name = 'eth';
 
   IconData icon = FontAwesomeIcons.ethereum;
 
   final String _basePath = "60'/0'/0/0";
 
-  Eth(this.crypto, BIP32.BIP32 node) {
+  Eth(this.crypto, bip32.BIP32 node) {
     _node = node;
     _hdWallet = _node.derivePath("$_basePath");
   }

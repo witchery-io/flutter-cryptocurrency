@@ -14,7 +14,7 @@ class Btc implements Coin {
 
   CryptoProvider crypto;
 
-  get name => 'btc';
+  String name = 'btc';
 
   IconData icon = FontAwesomeIcons.bitcoin;
 

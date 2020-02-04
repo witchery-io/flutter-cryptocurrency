@@ -13,7 +13,7 @@ class Eos implements Coin {
 
   CryptoProvider crypto;
 
-  get name => 'eos';
+  String name = 'eos';
 
   IconData icon = FontAwesomeIcons.coins;
 
