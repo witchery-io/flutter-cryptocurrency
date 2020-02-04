@@ -1,3 +1,1 @@
-enum Currency {
-  BTC, ETH, EOS
-}
+enum Currency { BTC, ETH, EOS }
