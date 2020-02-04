@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hex/hex.dart';
 import 'package:web3dart/web3dart.dart' as W3D;
 
-import '../resources/crypto_provider.dart';
 import '../interfaces/coin.dart';
+import '../resources/crypto_provider.dart';
 
 class Eth implements Coin {
   BIP32.BIP32 _node;
@@ -36,7 +36,8 @@ class Eth implements Coin {
 
   @override
   Future<String> getAddress() async {
-    W3D.EthereumAddress address = await W3D.EthPrivateKey.fromHex(getPrivateKey()).extractAddress();
+    W3D.EthereumAddress address =
+        await W3D.EthPrivateKey.fromHex(getPrivateKey()).extractAddress();
     return address.toString();
   }
 

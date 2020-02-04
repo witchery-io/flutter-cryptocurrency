@@ -1,10 +1,10 @@
-import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:bip32/bip32.dart' as bip32;
+import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../resources/crypto_provider.dart';
+
 import '../interfaces/coin.dart';
-import '../utils/env.dart';
+import '../resources/crypto_provider.dart';
 import '../utils/tx.dart';
 
 class Btc implements Coin {
@@ -20,7 +20,7 @@ class Btc implements Coin {
 
   final String _basePath = "0'/0'/0/0";
 
-  Btc(this.crypto, bip32.BIP32 node) {
+  Btc(this.crypto, bip32.BIP32 node, {network = 'testnet'}) {
     _node = node;
     _hdWallet = HDWallet.fromBase58(
       _node.toBase58(),
