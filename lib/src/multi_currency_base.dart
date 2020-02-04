@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' show Client;
 
@@ -9,41 +10,34 @@ import '../src/currencies/currencies.dart';
 import '../src/interfaces/coin.dart';
 import '../src/network.dart';
 import '../src/resources/crypto_provider.dart';
-import '../src/utils/mnemonic.dart';
 import 'di/bloc_module.dart';
 
 class MultiCurrency {
-  Coin _coin;
-  Mnemonic _mnemonic;
   bip32.BIP32 _node;
   CryptoProvider _crypto;
 
-  MultiCurrency(String mnemonic, {network = 'testnet'}) {
-    _mnemonic = Mnemonic(mnemonic);
-    if (!_mnemonic.isValid) throw Exception('Invalid mnemonic');
+  MultiCurrency(String mn, {network = 'testnet'}) : assert(mn != null) {
+    if (!bip39.validateMnemonic(mn)) throw Exception('Invalid mnemonic');
 
     _crypto = BlocModule().cryptoProvider(Client());
 
     _node = bip32.BIP32
         .fromSeed(
-            _mnemonic.mnemonicToSeed, network == 'testnet' ? testNet : mainNet)
+            bip39.mnemonicToSeed(mn), network == 'testnet' ? testNet : mainNet)
         .derivePath("m/44'");
   }
 
   Coin getCurrency(Currency type) {
     switch (type) {
       case Currency.BTC:
-        _coin = Btc(_crypto, _node);
-        break;
+        return Btc(_crypto, _node);
       case Currency.ETH:
-        _coin = Eth(_crypto, _node);
-        break;
+        return Eth(_crypto, _node);
       case Currency.EOS:
-        _coin = Eos(_crypto, _node);
-        break;
+        return Eos(_crypto, _node);
     }
 
-    return _coin;
+    return null; // unknown case
   }
 
   Future<String> md5Address(Currency cur) async {
