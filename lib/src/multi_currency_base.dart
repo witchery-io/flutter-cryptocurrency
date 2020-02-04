@@ -5,9 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' show Client;
 
 import '../multi_currency.dart';
-import '../src/currencies/btc.dart';
-import '../src/currencies/eos.dart';
-import '../src/currencies/eth.dart';
+import '../src/currencies/currencies.dart';
 import '../src/interfaces/coin.dart';
 import '../src/network.dart';
 import '../src/resources/crypto_provider.dart';
