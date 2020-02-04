@@ -14,16 +14,15 @@ class Tx {
 
   get txHex => _txHex;
 
-  Tx({
-    @required this.senderAddress,
-    @required this.balance,
-    @required this.address,
-    @required this.price,
-    @required this.ecPair,
-    @required this.outputs,
-    this.fee = 0.01,
-    network = 'testnet'
-  }) {
+  Tx(
+      {@required this.senderAddress,
+      @required this.balance,
+      @required this.address,
+      @required this.price,
+      @required this.ecPair,
+      @required this.outputs,
+      this.fee = 0.01,
+      network = 'testnet'}) {
     _txb = TransactionBuilder(
       network: network == 'testnet' ? testnet : bitcoin,
     );
