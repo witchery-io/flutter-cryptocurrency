@@ -19,12 +19,9 @@ class MultiCurrency {
   BIP32.BIP32 _node;
   CryptoProvider _crypto;
 
-  /*
-  * modify
-  * */
-  Future<String> get btcMD5Address async {
-    final btcAddress = await getCurrency(Currency.BTC).getAddress();
-    return md5.convert(utf8.encode(btcAddress)).toString();
+  Future<String> md5Address(Currency cur) async {
+    final address = await getCurrency(cur).getAddress();
+    return md5.convert(utf8.encode(address)).toString();
   }
 
   MultiCurrency(String mnemonic) {
