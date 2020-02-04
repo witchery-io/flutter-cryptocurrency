@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bip32/bip32.dart' as BIP32;
+import 'package:bip32/bip32.dart' as bip32;
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' show Client;
 
@@ -18,7 +18,7 @@ import 'utils/env.dart';
 class MultiCurrency {
   Coin _coin;
   Mnemonic _mnemonic;
-  BIP32.BIP32 _node;
+  bip32.BIP32 _node;
   CryptoProvider _crypto;
 
   MultiCurrency(String mnemonic) {
@@ -27,7 +27,7 @@ class MultiCurrency {
 
     _crypto = BlocModule().cryptoProvider(Client());
 
-    _node = BIP32.BIP32
+    _node = bip32.BIP32
         .fromSeed(
             _mnemonic.mnemonicToSeed, network == 'testnet' ? testNet : mainNet)
         .derivePath("m/44'");
