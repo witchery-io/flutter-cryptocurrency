@@ -11,7 +11,6 @@ import '../src/network.dart';
 import '../src/resources/crypto_provider.dart';
 import '../src/utils/mnemonic.dart';
 import 'di/bloc_module.dart';
-import 'utils/env.dart';
 
 class MultiCurrency {
   Coin _coin;
@@ -19,7 +18,7 @@ class MultiCurrency {
   bip32.BIP32 _node;
   CryptoProvider _crypto;
 
-  MultiCurrency(String mnemonic) {
+  MultiCurrency(String mnemonic, {network = 'testnet'}) {
     _mnemonic = Mnemonic(mnemonic);
     if (!_mnemonic.isValid) throw Exception('Invalid mnemonic');
 

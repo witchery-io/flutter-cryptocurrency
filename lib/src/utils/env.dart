@@ -1,1 +1,0 @@
-const network = 'testnet';
