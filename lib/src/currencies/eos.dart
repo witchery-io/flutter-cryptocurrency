@@ -8,28 +8,27 @@ import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 
 class Eos implements Coin {
-  bip32.BIP32 _node;
-  bip32.BIP32 _hdWallet;
+  bip32.BIP32 node;
+  bip32.BIP32 hdWallet;
   CryptoProvider crypto;
-  String name = 'eos';
   IconData icon = FontAwesomeIcons.coins;
-  final String _basePath = "194'/0'/0/0";
+  final name = 'eos';
+  final _basePath = "194'/0'/0/0";
 
-  Eos(this.crypto, bip32.BIP32 node) {
-    _node = node;
-    _hdWallet = _node.derivePath("$_basePath");
+  Eos(this.crypto, this.node, {network = 'testnet'}) {
+    hdWallet = node.derivePath("$_basePath");
   }
 
   @override
   String getPublicKey() {
-    return eos_ecc.EOSPrivateKey.fromBuffer(_hdWallet.privateKey)
+    return eos_ecc.EOSPrivateKey.fromBuffer(hdWallet.privateKey)
         .toEOSPublicKey()
         .toString();
   }
 
   @override
   String getPrivateKey() {
-    return eos_ecc.EOSPrivateKey.fromBuffer(_hdWallet.privateKey).toString();
+    return eos_ecc.EOSPrivateKey.fromBuffer(hdWallet.privateKey).toString();
   }
 
   @override
