@@ -2,38 +2,37 @@ import 'package:bip32/bip32.dart' as bip32;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hex/hex.dart';
-import 'package:web3dart/web3dart.dart' as W3D;
+import 'package:web3dart/web3dart.dart' as w3d;
 
 import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 
 class Eth implements Coin {
-  bip32.BIP32 _node;
-  bip32.BIP32 _hdWallet;
+  bip32.BIP32 node;
+  bip32.BIP32 hdWallet;
   CryptoProvider crypto;
-  String name = 'eth';
   IconData icon = FontAwesomeIcons.ethereum;
-  final String _basePath = "60'/0'/0/0";
+  final name = 'eth';
+  final _basePath = "60'/0'/0/0";
 
-  Eth(this.crypto, bip32.BIP32 node) {
-    _node = node;
-    _hdWallet = _node.derivePath("$_basePath");
+  Eth(this.crypto, this.node, {network = 'testnet'}) {
+    hdWallet = node.derivePath("$_basePath");
   }
 
   @override
   String getPublicKey() {
-    return '0x' + HEX.encode(_hdWallet.publicKey);
+    return '0x' + HEX.encode(hdWallet.publicKey);
   }
 
   @override
   String getPrivateKey() {
-    return '0x' + HEX.encode(_hdWallet.privateKey);
+    return '0x' + HEX.encode(hdWallet.privateKey);
   }
 
   @override
   Future<String> getAddress() async {
-    W3D.EthereumAddress address =
-        await W3D.EthPrivateKey.fromHex(getPrivateKey()).extractAddress();
+    w3d.EthereumAddress address =
+        await w3d.EthPrivateKey.fromHex(getPrivateKey()).extractAddress();
     return address.toString();
   }
 
