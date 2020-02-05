@@ -8,19 +8,17 @@ import '../resources/crypto_provider.dart';
 import '../utils/tx.dart';
 
 class Btc implements Coin {
-  bip32.BIP32 _node;
+  bip32.BIP32 node;
   HDWallet _hdWallet;
   CryptoProvider crypto;
-  String name = 'btc';
   IconData icon = FontAwesomeIcons.bitcoin;
-  final String _basePath = "0'/0'/0/0";
+  final name = 'btc';
+  final _basePath = "0'/0'/0/0";
 
-  Btc(this.crypto, bip32.BIP32 node, {network = 'testnet'}) {
-    _node = node;
-    _hdWallet = HDWallet.fromBase58(
-      _node.toBase58(),
-      network: network == 'testnet' ? testnet : bitcoin,
-    ).derivePath(_basePath);
+  Btc(this.crypto, this.node, {network = 'testnet'}) {
+    _hdWallet = HDWallet.fromBase58(node.toBase58(),
+            network: network == 'testnet' ? testnet : bitcoin)
+        .derivePath(_basePath);
   }
 
   @override
@@ -73,14 +71,13 @@ class Btc implements Coin {
     });
 
     final tx = Tx(
-      senderAddress: _hdWallet.address,
-      balance: balance.balance.toInt(),
-      address: address,
-      price: priceSat.toInt(),
-      ecPair: _ecPair,
-      outputs: outputs,
-      fee: feeSat,
-    );
+        senderAddress: _hdWallet.address,
+        balance: balance.balance.toInt(),
+        address: address,
+        price: priceSat.toInt(),
+        ecPair: _ecPair,
+        outputs: outputs,
+        fee: feeSat);
 
     tx.build();
     await crypto.pushTx(currency, tx.txHex);
