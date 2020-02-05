@@ -10,13 +10,9 @@ import '../resources/crypto_provider.dart';
 class Eos implements Coin {
   bip32.BIP32 _node;
   bip32.BIP32 _hdWallet;
-
   CryptoProvider crypto;
-
   String name = 'eos';
-
   IconData icon = FontAwesomeIcons.coins;
-
   final String _basePath = "194'/0'/0/0";
 
   Eos(this.crypto, bip32.BIP32 node) {

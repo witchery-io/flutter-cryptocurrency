@@ -10,13 +10,9 @@ import '../resources/crypto_provider.dart';
 class Eth implements Coin {
   bip32.BIP32 _node;
   bip32.BIP32 _hdWallet;
-
   CryptoProvider crypto;
-
   String name = 'eth';
-
   IconData icon = FontAwesomeIcons.ethereum;
-
   final String _basePath = "60'/0'/0/0";
 
   Eth(this.crypto, bip32.BIP32 node) {

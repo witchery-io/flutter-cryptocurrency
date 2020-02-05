@@ -9,15 +9,10 @@ import '../utils/tx.dart';
 
 class Btc implements Coin {
   bip32.BIP32 _node;
-
   HDWallet _hdWallet;
-
   CryptoProvider crypto;
-
   String name = 'btc';
-
   IconData icon = FontAwesomeIcons.bitcoin;
-
   final String _basePath = "0'/0'/0/0";
 
   Btc(this.crypto, bip32.BIP32 node, {network = 'testnet'}) {
