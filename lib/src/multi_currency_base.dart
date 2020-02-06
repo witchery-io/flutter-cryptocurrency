@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' show Client;
 
 import '../multi_currency.dart';
@@ -13,6 +10,7 @@ import 'networks.dart';
 import 'resources/crypto_provider.dart';
 
 class MultiCurrency {
+  String mnemonic;
   CryptoProvider provider;
   bip32.BIP32 node;
   Map<Currency, Coin> cache = {};
@@ -31,7 +29,7 @@ class MultiCurrency {
         .derivePath(derPath);
   }
 
-  Coin getCurrency(Currency type) {
+  Coin _getCurrency(Currency type) {
     switch (type) {
       case Currency.BTC:
         if (!cache.containsKey(Currency.BTC))
@@ -52,8 +50,6 @@ class MultiCurrency {
     return cache[type];
   }
 
-  Future<String> md5Address(Currency cur) async {
-    final address = await getCurrency(cur).getAddress();
-    return md5.convert(utf8.encode(address)).toString();
-  }
+  List<Coin> get getCurrencies =>
+      Currency.values.map((curr) => _getCurrency(curr)).toList();
 }
