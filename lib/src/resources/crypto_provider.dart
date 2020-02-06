@@ -9,7 +9,6 @@ import 'http_provider.dart';
 
 class CryptoProvider implements HttpProvider {
   Client client;
-
   final baseUrl = 'https://api.coven.in/public';
 
   @provide
@@ -30,10 +29,9 @@ class CryptoProvider implements HttpProvider {
   @override
   Future pushTx(String curr, String txHex) async {
     Response response = await client.post(
-      "$baseUrl/$curr/test/transactions/send",
-      body: json.encode({'rowTransaction': txHex}),
-      headers: {"Content-Type": "application/json"},
-    );
+        "$baseUrl/$curr/test/transactions/send",
+        body: json.encode({'rowTransaction': txHex}),
+        headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
