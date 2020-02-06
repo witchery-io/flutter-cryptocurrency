@@ -17,15 +17,17 @@ class MultiCurrency {
   CryptoProvider crypto;
   Map<Currency, Coin> cache = {};
 
-  MultiCurrency(String mn, {network = 'testnet'}) : assert(mn != null) {
+  MultiCurrency(String mn, {network = 'testnet'})
+      : assert(mn != null),
+        assert(network != null) {
     if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
 
-    crypto = BlocModule().cryptoProvider(Client());
-
+    final seed = bip39.mnemonicToSeed(mn);
     node = bip32.BIP32
-        .fromSeed(
-            bip39.mnemonicToSeed(mn), network == 'testnet' ? testNet : mainNet)
+        .fromSeed(seed, network == 'testnet' ? testNet : mainNet)
         .derivePath("m/44'");
+
+    crypto = BlocModule().cryptoProvider(Client());
   }
 
   Coin getCurrency(Currency type) {
