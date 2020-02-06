@@ -10,15 +10,14 @@ class Balance {
 
   final List<Transaction> txs;
 
-  Balance({
-    this.address,
-    this.balance,
-    this.finalBalance,
-    this.totalReceived,
-    this.totalSent,
-    this.txCount,
-    this.txs,
-  });
+  Balance(
+      {this.address,
+      this.balance,
+      this.finalBalance,
+      this.totalReceived,
+      this.totalSent,
+      this.txCount,
+      this.txs});
 
   factory Balance.fromJson(Map<String, dynamic> json) {
     return Balance(
@@ -28,7 +27,7 @@ class Balance {
       totalReceived: json['total_received'],
       totalSent: json['total_sent'],
       txCount: json['tx_count'],
-      txs: List.of(json['txs']).map((tx) => Transaction.fromJson(tx)).toList(),
+      txs: List.of(json['txs']).map((tx) => Transaction.fromJson(tx)).toList()
     );
   }
 }
