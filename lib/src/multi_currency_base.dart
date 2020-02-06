@@ -44,7 +44,7 @@ class MultiCurrency {
         break;
     }
 
-    if (!cache.containsKey(type)) Exception('Wrong case');
+    if (!cache.containsKey(type)) throw Exception('Ups something is wrong.');
 
     return cache[type];
   }
