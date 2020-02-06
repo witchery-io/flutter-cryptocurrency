@@ -10,20 +10,20 @@ import 'networks.dart';
 import 'resources/crypto_provider.dart';
 
 class MultiCurrency {
-  String mnemonic;
+  final String mnemonic;
   CryptoProvider _provider;
   bip32.BIP32 _node;
   Map<Currency, Coin> _cache = {};
   final String network;
   final _derPath = "m/44'";
 
-  MultiCurrency(String mn, {this.network = 'testnet'})
-      : assert(mn != null),
+  MultiCurrency(this.mnemonic, {this.network = 'testnet'})
+      : assert(mnemonic != null),
         assert(network != null) {
-    if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
+    if (!bip39.validateMnemonic(mnemonic)) throw Exception('Mnemonic is not valid.');
 
     _provider = BlocModule().cryptoProvider(Client());
-    final seed = bip39.mnemonicToSeed(mn);
+    final seed = bip39.mnemonicToSeed(mnemonic);
     _node = bip32.BIP32
         .fromSeed(seed, network == 'testnet' ? testNet : mainNet)
         .derivePath(_derPath);
