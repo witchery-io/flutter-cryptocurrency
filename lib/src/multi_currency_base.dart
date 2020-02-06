@@ -15,10 +15,10 @@ import 'resources/crypto_provider.dart';
 class MultiCurrency {
   bip32.BIP32 node;
   CryptoProvider crypto;
-  Map cache;
+  Map cache = {};
 
   MultiCurrency(String mn, {network = 'testnet'}) : assert(mn != null) {
-    if (!bip39.validateMnemonic(mn)) throw Exception('Invalid mnemonic');
+    if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
 
     crypto = BlocModule().cryptoProvider(Client());
 
@@ -31,15 +31,23 @@ class MultiCurrency {
   Coin getCurrency(Currency type) {
     switch (type) {
       case Currency.BTC:
+        if (cache.containsKey(Currency.BTC)) return cache[Currency.BTC];
+
         final btc = Btc(crypto, node);
-        // add cache
+        cache[Currency.BTC] = btc;
         return btc;
       case Currency.ETH:
-        // add cache
-        return Eth(crypto, node);
+        if (cache.containsKey(Currency.ETH)) return cache[Currency.ETH];
+
+        final eth = Eth(crypto, node);
+        cache[Currency.ETH] = eth;
+        return eth;
       case Currency.EOS:
-        // add cache
-        return Eos(crypto, node);
+        if (cache.containsKey(Currency.EOS)) return cache[Currency.EOS];
+
+        final eos = Eos(crypto, node);
+        cache[Currency.EOS] = eos;
+        return eos;
     }
 
     return null; // unknown case
