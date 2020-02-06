@@ -7,7 +7,7 @@ import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 import '../utils/tx.dart';
 
-class Btc implements Coin {
+class BTC implements Coin {
   bip32.BIP32 node;
   HDWallet hdWallet;
   CryptoProvider crypto;
@@ -15,7 +15,7 @@ class Btc implements Coin {
   final name = 'btc';
   final _basePath = "0'/0'/0/0";
 
-  Btc(this.crypto, this.node, {network = 'testnet'}) {
+  BTC(this.crypto, this.node, {network = 'testnet'}) {
     hdWallet = HDWallet.fromBase58(node.toBase58(),
             network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);

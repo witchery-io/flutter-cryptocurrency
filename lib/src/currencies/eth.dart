@@ -7,7 +7,7 @@ import 'package:web3dart/web3dart.dart' as w3d;
 import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 
-class Eth implements Coin {
+class ETH implements Coin {
   bip32.BIP32 node;
   bip32.BIP32 hdWallet;
   CryptoProvider crypto;
@@ -15,7 +15,7 @@ class Eth implements Coin {
   final name = 'eth';
   final _basePath = "60'/0'/0/0";
 
-  Eth(this.crypto, this.node, {network = 'testnet'}) {
+  ETH(this.crypto, this.node, {network = 'testnet'}) {
     hdWallet = node.derivePath("$_basePath");
   }
 

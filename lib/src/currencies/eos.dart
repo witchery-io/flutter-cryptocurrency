@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../interfaces/coin.dart';
 import '../resources/crypto_provider.dart';
 
-class Eos implements Coin {
+class EOS implements Coin {
   bip32.BIP32 node;
   bip32.BIP32 hdWallet;
   CryptoProvider crypto;
@@ -15,7 +15,7 @@ class Eos implements Coin {
   final name = 'eos';
   final _basePath = "194'/0'/0/0";
 
-  Eos(this.crypto, this.node, {network = 'testnet'}) {
+  EOS(this.crypto, this.node, {network = 'testnet'}) {
     hdWallet = node.derivePath("$_basePath");
   }
 
