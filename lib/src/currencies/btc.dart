@@ -9,31 +9,31 @@ import '../utils/tx.dart';
 
 class Btc implements Coin {
   bip32.BIP32 node;
-  HDWallet _hdWallet;
+  HDWallet hdWallet;
   CryptoProvider crypto;
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
   final _basePath = "0'/0'/0/0";
 
   Btc(this.crypto, this.node, {network = 'testnet'}) {
-    _hdWallet = HDWallet.fromBase58(node.toBase58(),
+    hdWallet = HDWallet.fromBase58(node.toBase58(),
             network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
   @override
   String getPublicKey() {
-    return _hdWallet.pubKey;
+    return hdWallet.pubKey;
   }
 
   @override
   String getPrivateKey() {
-    return _hdWallet.wif;
+    return hdWallet.wif;
   }
 
   @override
   Future<String> getAddress() async {
-    return _hdWallet.address;
+    return hdWallet.address;
   }
 
   ECPair get _ecPair {
@@ -52,7 +52,7 @@ class Btc implements Coin {
 
     const currency = 'btc';
     const double fee = 0.001; /* fee */
-    final balance = await crypto.getBalance(currency, _hdWallet.address);
+    final balance = await crypto.getBalance(currency, hdWallet.address);
     final priceSat = price * 100000000;
     final feeSat = fee * 100000000;
 
@@ -63,7 +63,7 @@ class Btc implements Coin {
     final outputs = [];
     balance.txs.asMap().forEach((index, tx) {
       tx.outputs.asMap().forEach((index, output) {
-        if (output.addresses.contains(_hdWallet.address) &&
+        if (output.addresses.contains(hdWallet.address) &&
             output.spentBy.isEmpty) {
           outputs.add({'hash': tx.hash, 'index': index});
         }
@@ -71,7 +71,7 @@ class Btc implements Coin {
     });
 
     final tx = Tx(
-        senderAddress: _hdWallet.address,
+        senderAddress: hdWallet.address,
         balance: balance.balance.toInt(),
         address: address,
         price: priceSat.toInt(),
