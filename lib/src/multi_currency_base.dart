@@ -15,7 +15,7 @@ import 'resources/crypto_provider.dart';
 class MultiCurrency {
   bip32.BIP32 node;
   CryptoProvider crypto;
-  Map cache = {};
+  Map<Currency, Coin> cache = {};
 
   MultiCurrency(String mn, {network = 'testnet'}) : assert(mn != null) {
     if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
@@ -31,26 +31,22 @@ class MultiCurrency {
   Coin getCurrency(Currency type) {
     switch (type) {
       case Currency.BTC:
-        if (cache.containsKey(Currency.BTC)) return cache[Currency.BTC];
-
-        final btc = Btc(crypto, node);
-        cache[Currency.BTC] = btc;
-        return btc;
+        if (!cache.containsKey(Currency.BTC))
+          cache[Currency.BTC] = BTC(crypto, node);
+        break;
       case Currency.ETH:
-        if (cache.containsKey(Currency.ETH)) return cache[Currency.ETH];
-
-        final eth = Eth(crypto, node);
-        cache[Currency.ETH] = eth;
-        return eth;
+        if (!cache.containsKey(Currency.ETH))
+          cache[Currency.ETH] = ETH(crypto, node);
+        break;
       case Currency.EOS:
-        if (cache.containsKey(Currency.EOS)) return cache[Currency.EOS];
-
-        final eos = Eos(crypto, node);
-        cache[Currency.EOS] = eos;
-        return eos;
+        if (!cache.containsKey(Currency.EOS))
+          cache[Currency.EOS] = EOS(crypto, node);
+        break;
     }
 
-    return null; // unknown case
+    if (!cache.containsKey(type)) Exception('Wrong case');
+
+    return cache[type];
   }
 
   Future<String> md5Address(Currency cur) async {
