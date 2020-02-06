@@ -13,7 +13,7 @@ import 'networks.dart';
 import 'resources/crypto_provider.dart';
 
 class MultiCurrency {
-  CryptoProvider crypto;
+  CryptoProvider provider;
   bip32.BIP32 node;
   Map<Currency, Coin> cache = {};
   String network;
@@ -24,7 +24,7 @@ class MultiCurrency {
         assert(network != null) {
     if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
 
-    crypto = BlocModule().cryptoProvider(Client());
+    provider = BlocModule().cryptoProvider(Client());
     final seed = bip39.mnemonicToSeed(mn);
     node = bip32.BIP32
         .fromSeed(seed, network == 'testnet' ? testNet : mainNet)
@@ -35,15 +35,15 @@ class MultiCurrency {
     switch (type) {
       case Currency.BTC:
         if (!cache.containsKey(Currency.BTC))
-          cache[Currency.BTC] = BTC(crypto, node, network: network);
+          cache[Currency.BTC] = BTC(provider, node, network: network);
         break;
       case Currency.ETH:
         if (!cache.containsKey(Currency.ETH))
-          cache[Currency.ETH] = ETH(crypto, node, network: network);
+          cache[Currency.ETH] = ETH(provider, node, network: network);
         break;
       case Currency.EOS:
         if (!cache.containsKey(Currency.EOS))
-          cache[Currency.EOS] = EOS(crypto, node, network: network);
+          cache[Currency.EOS] = EOS(provider, node, network: network);
         break;
     }
 
