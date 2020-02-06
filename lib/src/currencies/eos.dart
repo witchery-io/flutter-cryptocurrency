@@ -36,9 +36,9 @@ class EOS implements Coin {
     eos_io.EOSClient client =
         eos_io.EOSClient('https://api.jungle.alohaeos.com', 'v1');
     final data = await client.getKeyAccounts(getPublicKey());
-    if (data.accountNames.isEmpty) {
+
+    if (data.accountNames.isEmpty)
       throw Exception('[EOS] Please register account');
-    }
 
     return data.accountNames[0];
   }

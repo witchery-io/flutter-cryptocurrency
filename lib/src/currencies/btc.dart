@@ -42,13 +42,9 @@ class BTC implements Coin {
 
   @override
   Future transaction(address, price) async {
-    if (address.isEmpty) {
-      throw ArgumentError('Empty address');
-    }
+    if (address.isEmpty) throw ArgumentError('Empty address');
 
-    if (price.isNegative) {
-      throw ArgumentError('Negative price');
-    }
+    if (price.isNegative) throw ArgumentError('Negative price');
 
     const currency = 'btc';
     const double fee = 0.001; /* fee */
@@ -56,9 +52,8 @@ class BTC implements Coin {
     final priceSat = price * 100000000;
     final feeSat = fee * 100000000;
 
-    if (balance.balance < (priceSat + feeSat)) {
+    if (balance.balance < (priceSat + feeSat))
       throw Exception('Insufficient balance');
-    }
 
     final outputs = [];
     balance.txs.asMap().forEach((index, tx) {
