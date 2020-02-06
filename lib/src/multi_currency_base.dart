@@ -11,43 +11,43 @@ import 'resources/crypto_provider.dart';
 
 class MultiCurrency {
   String mnemonic;
-  CryptoProvider provider;
-  bip32.BIP32 node;
-  Map<Currency, Coin> cache = {};
-  String network;
-  final derPath = "m/44'";
+  CryptoProvider _provider;
+  bip32.BIP32 _node;
+  Map<Currency, Coin> _cache = {};
+  final String network;
+  final _derPath = "m/44'";
 
   MultiCurrency(String mn, {this.network = 'testnet'})
       : assert(mn != null),
         assert(network != null) {
     if (!bip39.validateMnemonic(mn)) throw Exception('Mnemonic is not valid.');
 
-    provider = BlocModule().cryptoProvider(Client());
+    _provider = BlocModule().cryptoProvider(Client());
     final seed = bip39.mnemonicToSeed(mn);
-    node = bip32.BIP32
+    _node = bip32.BIP32
         .fromSeed(seed, network == 'testnet' ? testNet : mainNet)
-        .derivePath(derPath);
+        .derivePath(_derPath);
   }
 
   Coin _getCurrency(Currency type) {
     switch (type) {
       case Currency.BTC:
-        if (!cache.containsKey(Currency.BTC))
-          cache[Currency.BTC] = BTC(provider, node, network: network);
+        if (!_cache.containsKey(Currency.BTC))
+          _cache[Currency.BTC] = BTC(_provider, _node, network: network);
         break;
       case Currency.ETH:
-        if (!cache.containsKey(Currency.ETH))
-          cache[Currency.ETH] = ETH(provider, node, network: network);
+        if (!_cache.containsKey(Currency.ETH))
+          _cache[Currency.ETH] = ETH(_provider, _node, network: network);
         break;
       case Currency.EOS:
-        if (!cache.containsKey(Currency.EOS))
-          cache[Currency.EOS] = EOS(provider, node, network: network);
+        if (!_cache.containsKey(Currency.EOS))
+          _cache[Currency.EOS] = EOS(_provider, _node, network: network);
         break;
     }
 
-    if (!cache.containsKey(type)) throw Exception('Ups something is wrong.');
+    if (!_cache.containsKey(type)) throw Exception('Ups something is wrong.');
 
-    return cache[type];
+    return _cache[type];
   }
 
   List<Coin> get getCurrencies =>
