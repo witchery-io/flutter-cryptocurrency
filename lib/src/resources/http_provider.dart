@@ -1,4 +1,4 @@
-import 'package:multi_currency/src/models/balance.dart';
+import 'package:multi_currency/src/models/models.dart';
 
 abstract class HttpProvider {
   Future<Balance> getBalance(String curr, String address);

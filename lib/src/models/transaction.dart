@@ -1,5 +1,4 @@
-import '../models/input.dart';
-import '../models/output.dart';
+import 'models.dart';
 
 class Transaction {
   final List addresses;

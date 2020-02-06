@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' show Client, Response;
 import 'package:inject/inject.dart';
 
-import '../models/balance.dart';
+import '../models/models.dart';
 import 'http_provider.dart';
 
 class CryptoProvider implements HttpProvider {
