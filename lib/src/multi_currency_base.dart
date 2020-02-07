@@ -50,6 +50,6 @@ class MultiCurrency {
     return _cache[type];
   }
 
-  List<Coin> get getCurrencies =>
-      Currency.values.map((curr) => _getCurrency(curr)).toList();
+  Future<List<Coin>> get getCurrencies =>
+      Future.value(Currency.values.map((curr) => _getCurrency(curr)).toList());
 }
