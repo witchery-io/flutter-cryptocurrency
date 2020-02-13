@@ -38,6 +38,6 @@ class ETH implements Coin {
 
   @override
   Future<void> transaction(address, price) {
-    throw Exception('[ETH] Please try again letter');
+    throw Exception('[ETH] transaction does not support');
   }
 }

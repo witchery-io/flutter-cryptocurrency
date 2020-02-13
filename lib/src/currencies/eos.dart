@@ -38,13 +38,13 @@ class EOS implements Coin {
     final data = await client.getKeyAccounts(getPublicKey());
 
     if (data.accountNames.isEmpty)
-      throw Exception('[EOS] Please register account');
+      return null;
 
     return data.accountNames[0];
   }
 
   @override
   Future<void> transaction(address, price) {
-    throw Exception('[EOS] Please try again letter');
+    throw Exception('[EOS] transaction does not support');
   }
 }
