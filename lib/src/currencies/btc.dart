@@ -41,7 +41,7 @@ class BTC implements Coin {
   }
 
   @override
-  Future transaction(address, price) async {
+  Future<void> transaction(address, price) async {
     if (address.isEmpty) throw ArgumentError('Empty address');
 
     if (price.isNegative) throw ArgumentError('Negative price');
