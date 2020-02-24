@@ -38,7 +38,7 @@ class EOS implements Coin {
     final data = await client.getKeyAccounts(getPublicKey());
 
     if (data.accountNames.isEmpty)
-      return null;
+      return Future.value(null);
 
     return data.accountNames[0];
   }
