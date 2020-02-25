@@ -9,7 +9,7 @@ import 'http_provider.dart';
 
 class CryptoProvider implements HttpProvider {
   Client client;
-  final baseUrl = 'https://c000bb8f.ngrok.io/public';
+  final baseUrl = 'https://7af18e82.ngrok.io/public';
 
   @provide
   CryptoProvider({@required this.client});
