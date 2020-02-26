@@ -1,6 +1,4 @@
 import 'package:bip32/bip32.dart' as bip32;
-import 'package:eosdart/eosdart.dart' as eos_io;
-import 'package:eosdart_ecc/eosdart_ecc.dart' as eos_ecc;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,42 +7,22 @@ import '../resources/crypto_provider.dart';
 
 class EOS implements Coin {
   bip32.BIP32 node;
-  bip32.BIP32 hdWallet;
+  bip32.BIP32 root;
   CryptoProvider crypto;
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
-  final _basePath = "194'/0'/0/0";
+  final _basePath = "194'/0'/0";
+
+  final _cacheAddresses = [];
+
+  List get addressesList => _cacheAddresses;
 
   EOS(this.crypto, this.node, {network = 'testnet'}) {
-    hdWallet = node.derivePath("$_basePath");
+    root = node.derivePath("$_basePath");
   }
 
   @override
-  String getPublicKey() {
-    return eos_ecc.EOSPrivateKey.fromBuffer(hdWallet.privateKey)
-        .toEOSPublicKey()
-        .toString();
-  }
-
-  @override
-  String getPrivateKey() {
-    return eos_ecc.EOSPrivateKey.fromBuffer(hdWallet.privateKey).toString();
-  }
-
-  @override
-  Future<String> getAddress() async {
-    eos_io.EOSClient client =
-        eos_io.EOSClient('https://api.jungle.alohaeos.com', 'v1');
-    final data = await client.getKeyAccounts(getPublicKey());
-
-    if (data.accountNames.isEmpty)
-      return Future.value(null);
-
-    return data.accountNames[0];
-  }
-
-  @override
-  Future<void> transaction(address, price) {
-    throw Exception('[EOS] transaction does not support');
+  Future addresses({start, end}) {
+    return Future.value(_cacheAddresses);
   }
 }
