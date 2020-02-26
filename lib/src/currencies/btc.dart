@@ -28,9 +28,8 @@ class BTC implements Coin {
   Future addresses({start, end}) async {
     if (start > end) throw ArgumentError('Argument is not valid');
 
-    for (int i = start; i < end; i++) {
+    for (int i = start; i < end; i++)
       _cacheAddresses.add(root.derivePath('$i'));
-    }
 
     return Future.value(_cacheAddresses);
   }
