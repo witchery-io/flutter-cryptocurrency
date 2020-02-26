@@ -15,7 +15,7 @@ class ETH implements Coin {
 
   final _cacheAddresses = [];
 
-  List get addressesList => _cacheAddresses;
+  List<bip32.BIP32> get addressesList => _cacheAddresses;
 
   ETH(this.crypto, this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");

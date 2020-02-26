@@ -16,7 +16,7 @@ class BTC implements Coin {
 
   final _cacheAddresses = [];
 
-  List get addressesList => _cacheAddresses;
+  List<HDWallet> get addressesList => _cacheAddresses;
 
   BTC(this.crypto, this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
