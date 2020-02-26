@@ -13,7 +13,7 @@ class BTC implements Coin {
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
   final _basePath = "0'/0'/0";
-  final List cacheAddresses = [];
+  final List<HDWallet> cacheAddresses = [];
 
   BTC(this.crypto, this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),

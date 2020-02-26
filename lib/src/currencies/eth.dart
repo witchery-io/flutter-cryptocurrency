@@ -12,7 +12,7 @@ class ETH implements Coin {
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
   final _basePath = "60'/0'/0";
-  final cacheAddresses = [];
+  final List<bip32.BIP32> cacheAddresses = [];
 
   ETH(this.crypto, this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
