@@ -12,10 +12,7 @@ class EOS implements Coin {
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
   final _basePath = "194'/0'/0";
-
-  final _cacheAddresses = [];
-
-  List<bip32.BIP32> get addressesList => _cacheAddresses;
+  final List cacheAddresses = [];
 
   EOS(this.crypto, this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
@@ -25,6 +22,6 @@ class EOS implements Coin {
   Future addresses({start, end}) {
     if (start > end) throw ArgumentError('Argument is not valid');
 
-    return Future.value(_cacheAddresses);
+    return Future.value(cacheAddresses);
   }
 }

@@ -13,10 +13,7 @@ class BTC implements Coin {
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
   final _basePath = "0'/0'/0";
-
-  final _cacheAddresses = [];
-
-  List<HDWallet> get addressesList => _cacheAddresses;
+  final List cacheAddresses = [];
 
   BTC(this.crypto, this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
@@ -29,8 +26,8 @@ class BTC implements Coin {
     if (start > end) throw ArgumentError('Argument is not valid');
 
     for (int i = start; i < end; i++)
-      _cacheAddresses.add(root.derivePath('$i'));
+      cacheAddresses.add(root.derivePath('$i'));
 
-    return Future.value(_cacheAddresses);
+    return Future.value(cacheAddresses);
   }
 }

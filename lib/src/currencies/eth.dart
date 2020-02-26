@@ -12,10 +12,7 @@ class ETH implements Coin {
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
   final _basePath = "60'/0'/0";
-
-  final _cacheAddresses = [];
-
-  List<bip32.BIP32> get addressesList => _cacheAddresses;
+  final cacheAddresses = [];
 
   ETH(this.crypto, this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
@@ -25,6 +22,6 @@ class ETH implements Coin {
   Future addresses({start, end}) {
     if (start > end) throw ArgumentError('Argument is not valid');
 
-    return Future.value(_cacheAddresses);
+    return Future.value(cacheAddresses);
   }
 }
