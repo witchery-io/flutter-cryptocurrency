@@ -22,12 +22,12 @@ class BTC implements Coin {
   }
 
   @override
-  Future addresses({start, end}) async {
+  addresses({start, end}) {
     assert(start < end);
 
     for (int i = start; i < end; i++)
       cacheAddresses.add(root.derivePath('$i'));
 
-    return Future.value(cacheAddresses);
+    return cacheAddresses;
   }
 }

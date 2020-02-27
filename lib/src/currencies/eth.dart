@@ -19,9 +19,9 @@ class ETH implements Coin {
   }
 
   @override
-  Future addresses({start, end}) {
+  addresses({start, end}) {
     assert(start < end);
 
-    return Future.value(cacheAddresses);
+    return cacheAddresses;
   }
 }
