@@ -21,7 +21,6 @@ class ETH implements Coin {
   @override
   addresses({start, end}) {
     assert(start < end);
-
     return cacheAddresses;
   }
 }

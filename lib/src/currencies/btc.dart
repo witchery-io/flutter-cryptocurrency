@@ -22,9 +22,8 @@ class BTC implements Coin {
   }
 
   @override
-  addresses({start, end}) {
+  addresses({start = 0, end = 20}) {
     assert(start < end);
-
     for (int i = start; i < end; i++)
       cacheAddresses.add(root.derivePath('$i'));
 
