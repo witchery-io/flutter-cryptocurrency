@@ -20,7 +20,7 @@ class ETH implements Coin {
 
   @override
   Future addresses({start, end}) {
-    if (start > end) throw ArgumentError('Argument is not valid');
+    assert(start < end);
 
     return Future.value(cacheAddresses);
   }

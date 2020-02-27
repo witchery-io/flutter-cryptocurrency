@@ -23,7 +23,7 @@ class BTC implements Coin {
 
   @override
   Future addresses({start, end}) async {
-    if (start > end) throw ArgumentError('Argument is not valid');
+    assert(start < end);
 
     for (int i = start; i < end; i++)
       cacheAddresses.add(root.derivePath('$i'));
