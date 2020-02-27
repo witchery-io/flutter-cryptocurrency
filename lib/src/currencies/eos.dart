@@ -23,4 +23,9 @@ class EOS implements Coin {
     assert(start < end);
     return cacheAddresses;
   }
+
+  @override
+  Future<void> transaction(address, price) {
+    return null;
+  }
 }

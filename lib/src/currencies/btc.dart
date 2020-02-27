@@ -24,9 +24,13 @@ class BTC implements Coin {
   @override
   addresses({start = 0, end = 20}) {
     assert(start < end);
-    for (int i = start; i < end; i++)
-      cacheAddresses.add(root.derivePath('$i'));
+    for (int i = start; i < end; i++) cacheAddresses.add(root.derivePath('$i'));
 
     return cacheAddresses;
+  }
+
+  @override
+  Future<void> transaction(address, price) {
+    return null;
   }
 }

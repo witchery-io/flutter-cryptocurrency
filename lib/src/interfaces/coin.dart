@@ -5,4 +5,5 @@ abstract class Coin {
   IconData icon;
   List get cacheAddresses;
   List addresses({@required start, @required end});
+  Future<void> transaction(String address, double price);
 }
