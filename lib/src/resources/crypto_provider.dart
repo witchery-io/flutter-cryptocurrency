@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' show Client, Response;
 import 'package:inject/inject.dart';
-
-import '../models/models.dart';
-import 'http_provider.dart';
+import 'package:multi_currency/src/models/models.dart';
+import 'package:multi_currency/src/resources/http_provider.dart';
 
 class CryptoProvider implements HttpProvider {
-  Client client;
+  final Client client;
   final baseUrl = 'https://7af18e82.ngrok.io/public';
 
   @provide
@@ -16,8 +15,8 @@ class CryptoProvider implements HttpProvider {
 
   @override
   Future<Balance> getBalance(String curr, String address) async {
-    Response response =
-        await client.get("$baseUrl/$curr/test/address/$address");
+    final url = "$baseUrl/$curr/test/address/$address";
+    final response = await client.get(url);
 
     if (response.statusCode == 200) {
       return Balance.fromJson(json.decode(response.body));
@@ -36,7 +35,7 @@ class CryptoProvider implements HttpProvider {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('Error: ${response.body}');
+      throw Exception('${response.body}');
     }
   }
 }
