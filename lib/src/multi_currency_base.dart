@@ -5,7 +5,7 @@ import 'package:http/http.dart' show Client;
 import '../multi_currency.dart';
 import 'currencies/currencies.dart';
 import 'di/bloc_module.dart';
-import 'interfaces/coin.dart';
+import 'models/models.dart';
 import 'networks.dart';
 import 'resources/crypto_provider.dart';
 

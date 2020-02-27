@@ -3,7 +3,7 @@ import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../interfaces/coin.dart';
+import '../models/coin.dart';
 import '../resources/crypto_provider.dart';
 
 class BTC implements Coin {
