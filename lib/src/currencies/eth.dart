@@ -26,6 +26,6 @@ class ETH implements Coin {
 
   @override
   Future<void> transaction(address, price) {
-    return null;
+    throw Exception('Please try later');
   }
 }
