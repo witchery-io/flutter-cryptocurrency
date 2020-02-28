@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 abstract class Coin {
   String get name;
   IconData icon;
-  List get cacheAddresses;
-  List addresses({@required start, @required end});
+  addresses({@required int to});
   Future<void> transaction(String address, double price);
 }

@@ -12,15 +12,14 @@ class EOS implements Coin {
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
   final _basePath = "194'/0'/0";
-  final List<bip32.BIP32> cacheAddresses = [];
+  final Map<int, bip32.BIP32> cacheAddresses = {};
 
   EOS(this.crypto, this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
   }
 
   @override
-  addresses({start, end}) {
-    assert(start < end);
+  addresses({to}) {
     return cacheAddresses;
   }
 
