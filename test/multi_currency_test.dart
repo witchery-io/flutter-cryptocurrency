@@ -1,9 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:multi_currency/multi_currency.dart';
-import 'package:multi_currency/src/currencies/currencies.dart';
-
 void main() {
-  test('[BTC][ETH][EOS] currency', () async {
+/*  test('[BTC][ETH][EOS] currency', () async {
     const mnemonic =
         'soup animal leader blast feed need saddle rifle unit stumble stock pulp';
     final mc = MultiCurrency(mnemonic);
@@ -36,5 +32,5 @@ void main() {
         throw 'Invalid coin';
       }
     });
-  });
+  });*/
 }

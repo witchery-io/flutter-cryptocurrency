@@ -1,12 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:multi_currency/src/models/balance.dart';
-import 'package:multi_currency/src/resources/crypto_provider.dart';
-import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' show Client, Response;
-import 'dart:convert';
+import 'package:mockito/mockito.dart';
 
 void main() {
-  MockHttpProvider http;
+/*  MockHttpProvider http;
   CryptoProvider crypto;
 
   final balance = Balance.fromJson(fakeBalanceResponse);
@@ -117,7 +113,7 @@ const fakeBalanceResponse = {
         }
       ]
     }
-  ]
-};
+  ]*/
+}
 
 class MockHttpProvider extends Mock implements Client {}
