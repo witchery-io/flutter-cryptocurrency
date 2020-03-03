@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_currency/src/models/models.dart';
 
-
 class BTC implements Coin {
   bip32.BIP32 node;
   HDWallet root;
@@ -20,8 +19,10 @@ class BTC implements Coin {
   }
 
   @override
-  addresses({to}) {
-    for (int i = 0; i < to; i++) {
+  addresses({next}) {
+    final from = cacheAddresses.length;
+    final to = next + from;
+    for (int i = from; i < to; i++) {
       cacheAddresses[i] = root.derivePath('$i');
     }
 

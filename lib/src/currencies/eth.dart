@@ -16,7 +16,7 @@ class ETH implements Coin {
   }
 
   @override
-  addresses({to}) {
+  addresses({next}) {
     return cacheAddresses;
   }
 
