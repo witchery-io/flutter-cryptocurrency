@@ -9,14 +9,14 @@ class EOS implements Coin {
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
   final _basePath = "194'/0'/0";
-  final Map<int, bip32.BIP32> cacheAddresses = {};
+  final Map<int, EosAddress> cacheAddresses = {};
 
   EOS(this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
   }
 
   @override
-  Map<int, bip32.BIP32> generateAddresses({next}) {
+  Map<int, Address> generateAddresses({next}) {
     return cacheAddresses;
   }
 
@@ -24,4 +24,17 @@ class EOS implements Coin {
   Future<void> transaction(address, price) {
     throw Exception('Please try later');
   }
+}
+
+class EosAddress implements Address {
+  String _address;
+  String _privateKey;
+
+  EosAddress(this._address, this._privateKey);
+
+  @override
+  get address => _address;
+
+  @override
+  get privateKey => _privateKey;
 }

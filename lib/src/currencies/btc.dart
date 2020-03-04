@@ -10,7 +10,7 @@ class BTC implements Coin {
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
   final _basePath = "0'/0'/0";
-  final Map<int, HDWallet> cacheAddresses = {};
+  final Map<int, Address> cacheAddresses = {};
 
   BTC(this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
@@ -19,11 +19,12 @@ class BTC implements Coin {
   }
 
   @override
-  Map<int, HDWallet> generateAddresses({next}) {
+  Map<int, Address> generateAddresses({next}) {
     final from = cacheAddresses.length;
     final to = next + from;
     for (int i = from; i < to; i++) {
-      cacheAddresses[i] = root.derivePath('$i');
+      final address = root.derivePath('$i');
+      cacheAddresses[i] = BtcAddress(address.address, address.wif);
     }
 
     return cacheAddresses;
@@ -33,4 +34,17 @@ class BTC implements Coin {
   Future<void> transaction(address, price) {
     return null;
   }
+}
+
+class BtcAddress implements Address {
+  String _address;
+  String _privateKey;
+
+  BtcAddress(this._address, this._privateKey);
+
+  @override
+  get address => _address;
+
+  @override
+  get privateKey => _privateKey;
 }
