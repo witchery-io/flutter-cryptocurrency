@@ -21,6 +21,7 @@ class BTC implements Coin {
   @override
   Map<int, Address> generateAddresses({next}) {
     final from = _cacheAddresses.length;
+    assert(next > from);
     final to = next + from;
     for (int i = from; i < to; i++) {
       final address = root.derivePath('$i');
