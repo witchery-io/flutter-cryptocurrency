@@ -16,7 +16,7 @@ class EOS implements Coin {
   }
 
   @override
-  addresses({next}) {
+  Map<int, bip32.BIP32> generateAddresses({next}) {
     return cacheAddresses;
   }
 

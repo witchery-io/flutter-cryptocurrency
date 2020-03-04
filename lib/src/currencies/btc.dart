@@ -19,7 +19,7 @@ class BTC implements Coin {
   }
 
   @override
-  addresses({next}) {
+  Map<int, HDWallet> generateAddresses({next}) {
     final from = cacheAddresses.length;
     final to = next + from;
     for (int i = from; i < to; i++) {
