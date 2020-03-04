@@ -9,7 +9,7 @@ class EOS implements Coin {
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
   final _basePath = "194'/0'/0";
-  final Map<int, EosAddress> cacheAddresses = {};
+  final Map<int, EosAddress> _cacheAddresses = {};
 
   EOS(this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
@@ -17,7 +17,7 @@ class EOS implements Coin {
 
   @override
   Map<int, Address> generateAddresses({next}) {
-    return cacheAddresses;
+    return _cacheAddresses;
   }
 
   @override

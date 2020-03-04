@@ -9,7 +9,7 @@ class ETH implements Coin {
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
   final _basePath = "60'/0'/0";
-  final Map<int, Address> cacheAddresses = {};
+  final Map<int, Address> _cacheAddresses = {};
 
   ETH(this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
@@ -17,7 +17,7 @@ class ETH implements Coin {
 
   @override
   Map<int, Address> generateAddresses({next}) {
-    return cacheAddresses;
+    return _cacheAddresses;
   }
 
   @override
