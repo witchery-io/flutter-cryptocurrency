@@ -37,8 +37,8 @@ class BTC implements Coin {
   }
 
   @override
-  Future addressList() {
-    return Future.value(_cacheAddresses.values);
+  Future<List> addressList() {
+    return Future.value(_cacheAddresses.values.toList());
   }
 
   @override
