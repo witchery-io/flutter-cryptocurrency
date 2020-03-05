@@ -9,6 +9,8 @@ abstract class Coin {
 
   Future<void> transaction(String address, double price);
 
+  Future addressList();
+
   List<Address> get getAddress;
 }
 

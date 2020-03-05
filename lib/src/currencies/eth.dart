@@ -26,6 +26,11 @@ class ETH implements Coin {
   }
 
   @override
+  Future addressList() {
+    return Future.value(_cacheAddresses.values);
+  }
+
+  @override
   List<Address> get getAddress => _cacheAddresses.values.toList();
 }
 
