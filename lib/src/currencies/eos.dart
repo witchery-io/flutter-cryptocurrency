@@ -26,9 +26,7 @@ class EOS implements Coin {
   }
 
   @override
-  Future<List> addressList() {
-    return Future.value(_cacheAddresses.values.toList());
-  }
+  Future<List> get addressList => Future.value(_cacheAddresses.values.toList());
 
   @override
   List<Address> get getAddress => _cacheAddresses.values.toList();
