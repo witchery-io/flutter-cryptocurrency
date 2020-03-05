@@ -30,6 +30,11 @@ class EOS implements Coin {
 
   @override
   List<Address> get getAddress => _cacheAddresses.values.toList();
+
+  @override
+  Address getAddressByIndex(int index) {
+    return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
+  }
 }
 
 class EosAddress implements Address {

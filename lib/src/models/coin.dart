@@ -12,6 +12,8 @@ abstract class Coin {
   Future<List> addressList();
 
   List<Address> get getAddress;
+
+  Address getAddressByIndex(int index);
 }
 
 abstract class Address {
