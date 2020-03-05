@@ -37,9 +37,7 @@ class BTC implements Coin {
   }
 
   @override
-  List<Address> getAddress() {
-    return _cacheAddresses.values.toList();
-  }
+  List<Address> get getAddress => _cacheAddresses.values.toList();
 }
 
 class BtcAddress implements Address {
