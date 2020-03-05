@@ -27,7 +27,7 @@ class EOS implements Coin {
 
   @override
   List<Address> getAddress() {
-    return [];
+    return _cacheAddresses.values.toList();
   }
 }
 
