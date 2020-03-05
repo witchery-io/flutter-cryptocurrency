@@ -24,6 +24,11 @@ class EOS implements Coin {
   Future<void> transaction(address, price) {
     throw Exception('Please try later');
   }
+
+  @override
+  List<Address> getAddress() {
+    return [];
+  }
 }
 
 class EosAddress implements Address {

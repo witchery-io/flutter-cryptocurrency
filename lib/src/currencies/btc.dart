@@ -35,6 +35,11 @@ class BTC implements Coin {
   Future<void> transaction(address, price) {
     return null;
   }
+
+  @override
+  List<Address> getAddress() {
+    return [];
+  }
 }
 
 class BtcAddress implements Address {

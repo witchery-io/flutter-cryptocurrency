@@ -8,6 +8,8 @@ abstract class Coin {
   Map<int, Address> generateAddresses({@required int next});
 
   Future<void> transaction(String address, double price);
+
+  List<Address> getAddress();
 }
 
 abstract class Address {
