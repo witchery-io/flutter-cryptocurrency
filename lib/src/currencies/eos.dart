@@ -9,7 +9,7 @@ class EOS implements Coin {
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
   final _basePath = "194'/0'/0";
-  final Map<int, EosAddress> _cacheAddresses = {};
+  final Map<int, Address> _cacheAddresses = {};
 
   EOS(this.node, {network = 'testnet'}) {
     root = node.derivePath("$_basePath");
