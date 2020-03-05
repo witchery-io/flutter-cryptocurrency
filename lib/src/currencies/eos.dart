@@ -29,9 +29,6 @@ class EOS implements Coin {
   Future<List> addressList() => Future.value(_cacheAddresses.values.toList());
 
   @override
-  List<Address> get getAddress => _cacheAddresses.values.toList();
-
-  @override
   Address getAddressByIndex(int index) {
     return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
   }
