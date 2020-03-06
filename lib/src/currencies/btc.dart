@@ -3,7 +3,6 @@ import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_currency/src/models/models.dart';
-import 'package:multi_currency/src/utils/transaction_helper.dart';
 
 class BTC implements Coin {
   bip32.BIP32 node;
@@ -15,7 +14,7 @@ class BTC implements Coin {
 
   BTC(this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
-        network: network == 'testnet' ? testnet : bitcoin)
+            network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
@@ -41,7 +40,12 @@ class BTC implements Coin {
   }
 
   @override
-  Future transactionBuilder() {
+  Future transactionBuilder({fee, price, address, addressReceive, data}) {
+    print(fee);
+    print(price);
+    print(address);
+    print(addressReceive);
+    print(data);
 
 /*    const double fee = 0.001;
     final priceSat = price * 100000000;
