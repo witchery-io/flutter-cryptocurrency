@@ -3,6 +3,7 @@ import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_currency/src/models/models.dart';
+import 'package:multi_currency/src/utils/transaction_helper.dart';
 
 class BTC implements Coin {
   bip32.BIP32 node;
@@ -14,7 +15,7 @@ class BTC implements Coin {
 
   BTC(this.node, {network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
-            network: network == 'testnet' ? testnet : bitcoin)
+        network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
@@ -40,8 +41,33 @@ class BTC implements Coin {
   }
 
   @override
-  Future transaction(String address, double price) {
-    return null;
+  Future transactionBuilder() {
+
+/*    const double fee = 0.001;
+    final priceSat = price * 100000000;
+    final feeSat = fee * 100000000;
+
+    final outputs = [];
+    balance.txs.asMap().forEach((index, tx) {
+      tx.outputs.asMap().forEach((index, output) {
+        if (output.addresses.contains(root.address) && output.spentBy.isEmpty) {
+          outputs.add({'hash': tx.hash, 'index': index});
+        }
+      });
+    });
+
+    final transaction = TransactionHelper(
+        senderAddress: root.address,
+        balance: balance.balance.toInt(),
+        address: address,
+        price: priceSat.toInt(),
+        ecPair: ECPair.fromWIF('private Key'), // todo getPrivateKey()
+        outputs: outputs,
+        fee: feeSat);
+
+    return transaction.build();*/
+
+    return Future.value(['ok bro!']);
   }
 }
 

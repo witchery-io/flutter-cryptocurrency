@@ -29,7 +29,7 @@ class ETH implements Coin {
   }
 
   @override
-  Future transaction(String address, double price) {
+  Future transactionBuilder() {
     return null;
   }
 }
