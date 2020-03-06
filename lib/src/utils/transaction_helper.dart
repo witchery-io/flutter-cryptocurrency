@@ -1,7 +1,7 @@
 import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/foundation.dart';
 
-class Tx {
+class TransactionHelper {
   TransactionBuilder _txb;
   String senderAddress;
   int balance;
@@ -14,7 +14,7 @@ class Tx {
 
   get txHex => _txHex;
 
-  Tx(
+  TransactionHelper(
       {@required this.senderAddress,
       @required this.balance,
       @required this.address,

@@ -7,6 +7,8 @@ abstract class Coin {
 
   Map<int, Address> generateAddresses({@required int next});
 
+  Future transaction(String address, double price);
+
   Future<List> addressList();
 
   Address getAddressByIndex(int index);

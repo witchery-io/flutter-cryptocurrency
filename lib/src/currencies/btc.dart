@@ -38,6 +38,11 @@ class BTC implements Coin {
   Address getAddressByIndex(int index) {
     return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
   }
+
+  @override
+  Future transaction(String address, double price) {
+    return null;
+  }
 }
 
 class BtcAddress implements Address {
