@@ -32,19 +32,12 @@ class BTC implements Coin {
   }
 
   @override
-  Future<void> transaction(address, price) {
-    return null;
-  }
-
-  @override
   Future<List> addressList() => Future.value(_cacheAddresses.values.toList());
 
   @override
   Address getAddressByIndex(int index) {
     return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
   }
-
-
 }
 
 class BtcAddress implements Address {

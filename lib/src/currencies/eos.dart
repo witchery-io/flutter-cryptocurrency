@@ -21,11 +21,6 @@ class EOS implements Coin {
   }
 
   @override
-  Future<void> transaction(address, price) {
-    throw Exception('Please try later');
-  }
-
-  @override
   Future<List> addressList() => Future.value(_cacheAddresses.values.toList());
 
   @override
