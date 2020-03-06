@@ -41,37 +41,7 @@ class BTC implements Coin {
 
   @override
   Future transactionBuilder({fee, price, address, addressReceive, data}) {
-    print(fee);
-    print(price);
-    print(address);
-    print(addressReceive);
-    print(data);
-
-/*    const double fee = 0.001;
-    final priceSat = price * 100000000;
-    final feeSat = fee * 100000000;
-
-    final outputs = [];
-    balance.txs.asMap().forEach((index, tx) {
-      tx.outputs.asMap().forEach((index, output) {
-        if (output.addresses.contains(root.address) && output.spentBy.isEmpty) {
-          outputs.add({'hash': tx.hash, 'index': index});
-        }
-      });
-    });
-
-    final transaction = TransactionHelper(
-        senderAddress: root.address,
-        balance: balance.balance.toInt(),
-        address: address,
-        price: priceSat.toInt(),
-        ecPair: ECPair.fromWIF('private Key'), // todo getPrivateKey()
-        outputs: outputs,
-        fee: feeSat);
-
-    return transaction.build();*/
-
-    return Future.value(['ok bro!']);
+    return null;
   }
 }
 
