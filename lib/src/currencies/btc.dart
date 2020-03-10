@@ -47,11 +47,13 @@ class BTC implements Coin {
       final txb = TransactionBuilder(network: _network);
       int sendingPrice = price;
       int sendingFee = fee;
+      final keys = {};
 
       for (int i = 0; i < data.length; i++) {
         final txBuildData = data[i];
         final balance = txBuildData.balance;
         final ecPair = ECPair.fromWIF(txBuildData.privateKey);
+        keys[i] = ecPair;
 
         txBuildData.txs.asMap().forEach((index, tx) {
           tx['outputs'].asMap().forEach((index, output) {
@@ -86,14 +88,11 @@ class BTC implements Coin {
         }
       }
 
-      print(txb.inputs);
-
-//      txb.inputs.asMap().forEach((index, input) {
-//        txb.sign(index, ecPair);
-//      });
+      txb.inputs.asMap().forEach((index, input) {
+        txb.sign(index, keys[index]);
+      });
 
       return txb.build().toHex();
-      return ' ___ R ___ ';
     } catch (e) {
       print(e);
 //      throw Exception(e);
