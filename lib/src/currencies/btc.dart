@@ -44,38 +44,54 @@ class BTC implements Coin {
     try {
       final txb = TransactionBuilder(network: testnet);
       int sendingPrice = price;
+      int sendingFee = fee;
 
       for (int i = 0; i < data.length; i++) {
         final txBuildData = data[i];
+        final balance = txBuildData.balance;
         final ecPair = ECPair.fromWIF(txBuildData.privateKey);
 
         txBuildData.txs.asMap().forEach((index, tx) {
           tx['outputs'].asMap().forEach((index, output) {
-            if (output['addresses'].contains(txBuildData.address) &&
-                output['spent_by'].length == 0) {
+            if (output['addresses'].contains(txBuildData.address) && output['spent_by'].length == 0) {
               txb.addInput(tx['hash'], index);
             }
           });
         });
 
-        if (sendingPrice > txBuildData.balance) {
-          txb.addOutput(address, txBuildData.balance);
-          sendingPrice = sendingPrice - txBuildData.balance;
-        } else if (sendingPrice == 0) {
-          txb.addOutput(addressReceive, txBuildData.balance);
+        if (sendingPrice > balance) {
+          txb.addOutput(address, balance);
+          sendingPrice = sendingPrice - balance;
+        } else if (sendingPrice == 0 && sendingFee == 0) {
+          txb.addOutput(addressReceive, balance);
+        } else if (sendingFee != 0 && sendingPrice == 0) {
+          if (sendingFee < balance) {
+            txb.addOutput(addressReceive, balance - sendingFee);
+            sendingFee = 0;
+          }
+
         } else {
           txb.addOutput(address, sendingPrice);
-          final backUpBalance = txBuildData.balance - sendingPrice;
-          txb.addOutput(addressReceive, backUpBalance - fee);
           sendingPrice = 0;
+
+          final backUpBalance = balance - sendingPrice;
+          if (backUpBalance > sendingFee) {
+            txb.addOutput(addressReceive, backUpBalance - sendingFee);
+            sendingFee = 0;
+          } else {
+            sendingFee = sendingFee - backUpBalance;
+          }
         }
 
         txb.inputs.asMap().forEach((index, input) {
           txb.sign(index, ecPair);
         });
 
-        print(txb.build().toHex());
       }
+
+      print(txb);
+      
+//      print(txb.build().toHex());
     } catch (e) {
       print(e);
     }
