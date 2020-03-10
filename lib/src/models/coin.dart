@@ -7,7 +7,7 @@ abstract class Coin {
 
   Map<int, Address> generateAddresses({@required int next});
 
-  Future transactionBuilder(
+  transactionBuilder(
       {@required fee,
       @required price,
       @required address,

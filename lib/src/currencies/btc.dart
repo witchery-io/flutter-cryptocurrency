@@ -15,7 +15,7 @@ class BTC implements Coin {
 
   BTC(this.node, {this.network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
-        network: network == 'testnet' ? testnet : bitcoin)
+            network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
@@ -41,7 +41,7 @@ class BTC implements Coin {
   }
 
   @override
-  Future transactionBuilder({fee, price, address, addressReceive, data}) {
+  transactionBuilder({fee, price, address, addressReceive, data}) {
     try {
       final txb = TransactionBuilder(network: network == 'testnet' ? testnet : bitcoin);
       int sendingPrice = price;
@@ -87,16 +87,12 @@ class BTC implements Coin {
         txb.inputs.asMap().forEach((index, input) {
           txb.sign(index, ecPair);
         });
-
       }
 
-      print(txb);
-      
-//      print(txb.build().toHex());
+      return txb.build().toHex();
     } catch (e) {
-      print(e);
+      throw Exception(e.message);
     }
-    return Future.value('__Finish__');
   }
 }
 

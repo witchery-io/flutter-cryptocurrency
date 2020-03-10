@@ -30,7 +30,7 @@ class EOS implements Coin {
   }
 
   @override
-  Future transactionBuilder({fee, price, address, addressReceive, data}) {
+  transactionBuilder({fee, price, address, addressReceive, data}) {
     return null;
   }
 }
