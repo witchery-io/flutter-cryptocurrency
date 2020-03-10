@@ -21,7 +21,7 @@ class TransactionHelper {
       @required this.price,
       @required this.ecPair,
       @required this.outputs,
-      this.fee = 0.01,
+      @required this.fee,
       network = 'testnet'}) {
     _txb = TransactionBuilder(
       network: network == 'testnet' ? testnet : bitcoin,

@@ -41,7 +41,54 @@ class BTC implements Coin {
 
   @override
   Future transactionBuilder({fee, price, address, addressReceive, data}) {
-    return null;
+    final _txb = TransactionBuilder(network: testnet);
+    final intFee = fee.toInt();
+    final intPrice = price.toInt();
+
+    for (int i = 0; i < data.length; i++) {
+      final txBuildData = data[i];
+      final ecPair = ECPair.fromWIF(txBuildData.privateKey);
+
+      try {
+        txBuildData.txs.asMap().forEach((index, tx) {
+          tx['outputs'].asMap().forEach((index, output) {
+            if (output['addresses'].contains(txBuildData.address) &&
+                output['spent_by'].length == 0) {
+              _txb.addInput(tx['hash'], index);
+            }
+          });
+        });
+
+        print(' ---- INT FEE ---- ');
+        print(intFee);
+
+        print(' ---- SEND ADDRESS ---- ');
+        print(address);
+        print(intPrice);
+
+        print(' ---- RECEIVE ADDRESS ---- ');
+        print(addressReceive);
+
+        print(' ---- BALANCE ---- ');
+        print(txBuildData.balance);
+        print('- -- --- ---- ----- A ');
+
+//        _txb.addOutput(address, price.toInt());
+//        _txb.addOutput(addressReceive, 20000);
+
+        _txb.inputs.asMap().forEach((index, input) {
+          _txb.sign(index, ecPair);
+        });
+
+        print(_txb.inputs);
+        print(_txb.build().toHex());
+
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    return Future.value('____');
   }
 }
 
