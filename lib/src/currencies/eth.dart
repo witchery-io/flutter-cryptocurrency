@@ -9,9 +9,10 @@ class ETH implements Coin {
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
   final _basePath = "60'/0'/0";
+  final String network;
   final Map<int, Address> _cacheAddresses = {};
 
-  ETH(this.node, {network = 'testnet'}) {
+  ETH(this.node, {this.network = 'testnet'}) {
     root = node.derivePath("$_basePath");
   }
 

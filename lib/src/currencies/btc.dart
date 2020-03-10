@@ -10,9 +10,10 @@ class BTC implements Coin {
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
   final _basePath = "0'/0'/0";
+  final String network;
   final Map<int, Address> _cacheAddresses = {};
 
-  BTC(this.node, {network = 'testnet'}) {
+  BTC(this.node, {this.network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
         network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
@@ -42,7 +43,7 @@ class BTC implements Coin {
   @override
   Future transactionBuilder({fee, price, address, addressReceive, data}) {
     try {
-      final txb = TransactionBuilder(network: testnet);
+      final txb = TransactionBuilder(network: network == 'testnet' ? testnet : bitcoin);
       int sendingPrice = price;
       int sendingFee = fee;
 

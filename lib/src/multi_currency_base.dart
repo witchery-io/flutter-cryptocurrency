@@ -14,8 +14,7 @@ class MultiCurrency {
   final _derPath = "m/44'";
 
   MultiCurrency(this.mnemonic, {this.network = 'testnet'})
-      : assert(mnemonic != null),
-        assert(network != null) {
+      : assert(mnemonic != null) {
     if (!bip39.validateMnemonic(mnemonic))
       throw Exception('Mnemonic is not valid.');
 
