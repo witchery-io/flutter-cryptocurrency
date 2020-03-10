@@ -43,7 +43,8 @@ class BTC implements Coin {
   @override
   transactionBuilder({fee, price, address, addressReceive, data}) {
     try {
-      final txb = TransactionBuilder(network: network == 'testnet' ? testnet : bitcoin);
+      final _network = network == 'testnet' ? testnet : bitcoin;
+      final txb = TransactionBuilder(network: _network);
       int sendingPrice = price;
       int sendingFee = fee;
 
@@ -54,7 +55,8 @@ class BTC implements Coin {
 
         txBuildData.txs.asMap().forEach((index, tx) {
           tx['outputs'].asMap().forEach((index, output) {
-            if (output['addresses'].contains(txBuildData.address) && output['spent_by'].length == 0) {
+            if (output['addresses'].contains(txBuildData.address) &&
+                output['spent_by'].length == 0) {
               txb.addInput(tx['hash'], index);
             }
           });
@@ -70,7 +72,6 @@ class BTC implements Coin {
             txb.addOutput(addressReceive, balance - sendingFee);
             sendingFee = 0;
           }
-
         } else {
           txb.addOutput(address, sendingPrice);
           sendingPrice = 0;
@@ -83,15 +84,19 @@ class BTC implements Coin {
             sendingFee = sendingFee - backUpBalance;
           }
         }
-
-        txb.inputs.asMap().forEach((index, input) {
-          txb.sign(index, ecPair);
-        });
       }
 
+      print(txb.inputs);
+
+//      txb.inputs.asMap().forEach((index, input) {
+//        txb.sign(index, ecPair);
+//      });
+
       return txb.build().toHex();
+      return ' ___ R ___ ';
     } catch (e) {
-      throw Exception(e.message);
+      print(e);
+//      throw Exception(e);
     }
   }
 }
