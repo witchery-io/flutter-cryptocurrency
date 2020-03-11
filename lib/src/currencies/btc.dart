@@ -45,6 +45,7 @@ class BTC implements Coin {
     try {
       final _network = network == 'testnet' ? testnet : bitcoin;
       final txb = TransactionBuilder(network: _network);
+      txb.setVersion(1);
       int sendingPrice = price;
       int sendingFee = fee;
       final keys = {};
