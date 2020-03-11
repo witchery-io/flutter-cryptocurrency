@@ -58,14 +58,34 @@ class BTC implements Coin {
         txs.asMap().forEach((txIndex, transaction) {
           final List outputs = transaction['outputs'];
           outputs.asMap().forEach((outputIndex, output) {
-            if (output['addresses'].contains(ownAddress) && output['spent_by'].length == 0) {
+            if (output['addresses'].contains(ownAddress) &&
+                output['spent_by'].length == 0) {
               txb.addInput(transaction['hash'], outputIndex);
-              signData.add({i: {txIndex: {outputIndex: ecPair}}});
+              signData.add({
+                i: {
+                  txIndex: {outputIndex: ecPair}
+                }
+              });
             }
           });
         });
 
-        txb.addOutput(address, balance);
+        if (price != 0 && fee != 0) {
+          if (balance >= (price + fee)) {
+            final rcBls = balance - (price + fee);
+            txb.addOutput(address, price);
+            txb.addOutput(addressReceive, rcBls);
+            price = 0;
+            fee = 0;
+          } else {
+            txb.addOutput(address, balance);
+            price = price - balance;
+          }
+        } else if (price == 0 && fee == 0) {
+          txb.addOutput(addressReceive, balance);
+        } else {
+          throw Exception('Invalid Transaction');
+        }
       }
 
       signData.asMap().forEach((index, val) {
@@ -79,12 +99,9 @@ class BTC implements Coin {
       });
 
       final build = txb.build();
-      print(build.toHex());
-
-      return null;
+      return build.toHex();
     } catch (e) {
-      print(e);
-//      throw Exception(e);
+      throw Exception(e);
     }
   }
 }
@@ -101,28 +118,3 @@ class BtcAddress implements Address {
   @override
   get privateKey => _privateKey;
 }
-
-/*
-//        if (sendingPrice > balance) {
-//          txb.addOutput(address, balance);
-//          sendingPrice = sendingPrice - balance;
-//        } else if (sendingPrice == 0 && sendingFee == 0) {
-//          txb.addOutput(addressReceive, balance);
-//        } else if (sendingFee != 0 && sendingPrice == 0) {
-//          if (sendingFee < balance) {
-//            txb.addOutput(addressReceive, balance - sendingFee);
-//            sendingFee = 0;
-//          }
-//        } else {
-//          txb.addOutput(address, sendingPrice);
-//          sendingPrice = 0;
-//
-//          final backUpBalance = balance - sendingPrice;
-//          if (backUpBalance > sendingFee) {
-//            txb.addOutput(addressReceive, backUpBalance - sendingFee);
-//            sendingFee = 0;
-//          } else {
-//            sendingFee = sendingFee - backUpBalance;
-//          }
-//        }
-*/
