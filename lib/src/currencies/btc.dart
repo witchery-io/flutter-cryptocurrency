@@ -46,54 +46,47 @@ class BTC implements Coin {
       final _network = network == 'testnet' ? testnet : bitcoin;
       final txb = TransactionBuilder(network: _network);
       txb.setVersion(1);
-      int sendingPrice = price;
-      int sendingFee = fee;
-      final keys = {};
+      final List<Map<int, Map<int, Map<int, ECPair>>>> signData = [];
 
       for (int i = 0; i < data.length; i++) {
         final txBuildData = data[i];
         final balance = txBuildData.balance;
+        final ownAddress = txBuildData.address;
         final ecPair = ECPair.fromWIF(txBuildData.privateKey);
-        keys[i] = ecPair;
+        final List txs = txBuildData.txs;
 
-        txBuildData.txs.asMap().forEach((index, tx) {
-          tx['outputs'].asMap().forEach((index, output) {
+        txs.asMap().forEach((txIndex, transaction) {
+          final List outputs = transaction['outputs'];
+          outputs.asMap().forEach((outputIndex, output) {
             if (output['addresses'].contains(txBuildData.address) &&
                 output['spent_by'].length == 0) {
-              txb.addInput(tx['hash'], index);
+              txb.addInput(transaction['hash'], outputIndex);
+              signData.add({
+                i: {
+                  txIndex: {outputIndex: ecPair}
+                }
+              });
             }
           });
         });
 
-        if (sendingPrice > balance) {
-          txb.addOutput(address, balance);
-          sendingPrice = sendingPrice - balance;
-        } else if (sendingPrice == 0 && sendingFee == 0) {
-          txb.addOutput(addressReceive, balance);
-        } else if (sendingFee != 0 && sendingPrice == 0) {
-          if (sendingFee < balance) {
-            txb.addOutput(addressReceive, balance - sendingFee);
-            sendingFee = 0;
-          }
-        } else {
-          txb.addOutput(address, sendingPrice);
-          sendingPrice = 0;
-
-          final backUpBalance = balance - sendingPrice;
-          if (backUpBalance > sendingFee) {
-            txb.addOutput(addressReceive, backUpBalance - sendingFee);
-            sendingFee = 0;
-          } else {
-            sendingFee = sendingFee - backUpBalance;
-          }
-        }
+        txb.addOutput(address, balance);
       }
 
-      txb.inputs.asMap().forEach((index, input) {
-        txb.sign(index, keys[index]);
+      signData.asMap().forEach((index, val) {
+        val.forEach((_, val) {
+          val.forEach((_, val) {
+            val.forEach((_, ecPair) {
+              txb.sign(index, ecPair);
+            });
+          });
+        });
       });
 
-      return txb.build().toHex();
+      final build = txb.build();
+      print(build.toHex());
+
+      return null;
     } catch (e) {
       print(e);
 //      throw Exception(e);
@@ -113,3 +106,28 @@ class BtcAddress implements Address {
   @override
   get privateKey => _privateKey;
 }
+
+/*
+//        if (sendingPrice > balance) {
+//          txb.addOutput(address, balance);
+//          sendingPrice = sendingPrice - balance;
+//        } else if (sendingPrice == 0 && sendingFee == 0) {
+//          txb.addOutput(addressReceive, balance);
+//        } else if (sendingFee != 0 && sendingPrice == 0) {
+//          if (sendingFee < balance) {
+//            txb.addOutput(addressReceive, balance - sendingFee);
+//            sendingFee = 0;
+//          }
+//        } else {
+//          txb.addOutput(address, sendingPrice);
+//          sendingPrice = 0;
+//
+//          final backUpBalance = balance - sendingPrice;
+//          if (backUpBalance > sendingFee) {
+//            txb.addOutput(addressReceive, backUpBalance - sendingFee);
+//            sendingFee = 0;
+//          } else {
+//            sendingFee = sendingFee - backUpBalance;
+//          }
+//        }
+*/
