@@ -15,7 +15,7 @@ void main() {
 
         final broadcast = coin.transactionBuilder(
           fee: 100000,
-          address: 'mvfEg3jtkrDiSw1MRAc21qjDC7Yo69xZh9',
+          address: 'mmLjG1HDCmnLkpzmDoEgkbS4yQsmA5ACCU',
           addressReceive: 'mjLA7rHbFSNdsEVvyPqx39Df87wf3wDiFR',
           price: 8888888,
           data: data,
