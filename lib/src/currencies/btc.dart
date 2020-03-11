@@ -58,14 +58,9 @@ class BTC implements Coin {
         txs.asMap().forEach((txIndex, transaction) {
           final List outputs = transaction['outputs'];
           outputs.asMap().forEach((outputIndex, output) {
-            if (output['addresses'].contains(txBuildData.address) &&
-                output['spent_by'].length == 0) {
+            if (output['addresses'].contains(ownAddress) && output['spent_by'].length == 0) {
               txb.addInput(transaction['hash'], outputIndex);
-              signData.add({
-                i: {
-                  txIndex: {outputIndex: ecPair}
-                }
-              });
+              signData.add({i: {txIndex: {outputIndex: ecPair}}});
             }
           });
         });
