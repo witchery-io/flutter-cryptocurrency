@@ -9,6 +9,7 @@ class BTC implements Coin {
   HDWallet root;
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
+  final isActive = true;
   final _basePath = "0'/0'/0";
   final String network;
   final Map<int, Address> _cacheAddresses = {};

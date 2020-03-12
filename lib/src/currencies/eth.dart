@@ -8,6 +8,7 @@ class ETH implements Coin {
   bip32.BIP32 root;
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
+  final isActive = false;
   final _basePath = "60'/0'/0";
   final String network;
   final Map<int, Address> _cacheAddresses = {};

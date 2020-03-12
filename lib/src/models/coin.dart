@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class Coin {
   String get name;
+  bool get isActive;
 
   IconData icon;
 
