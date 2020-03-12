@@ -3,7 +3,7 @@ import 'package:bip39/bip39.dart' as bip39;
 
 import '../multi_currency.dart';
 import 'currencies/currencies.dart';
-import 'models/models.dart';
+import 'models/coin.dart';
 import 'networks.dart';
 
 class MultiCurrency {

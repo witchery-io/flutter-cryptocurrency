@@ -2,7 +2,7 @@ import 'package:bip32/bip32.dart' as bip32;
 import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multi_currency/src/models/models.dart';
+import 'package:multi_currency/src/models/coin.dart';
 
 class BTC implements Coin {
   bip32.BIP32 node;
