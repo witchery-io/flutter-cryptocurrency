@@ -16,7 +16,7 @@ class BTC implements Coin {
 
   BTC(this.node, {this.network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
-            network: network == 'testnet' ? testnet : bitcoin)
+        network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
@@ -71,7 +71,9 @@ class BTC implements Coin {
           });
         });
 
-        if (price != 0 && fee != 0) {
+        if (price == 0 && fee == 0) {
+          txb.addOutput(addressReceive, balance);
+        } else if (price != 0 || fee != 0) {
           if (balance >= (price + fee)) {
             final rcBls = balance - (price + fee);
             txb.addOutput(address, price);
@@ -82,8 +84,6 @@ class BTC implements Coin {
             txb.addOutput(address, balance);
             price = price - balance;
           }
-        } else if (price == 0 && fee == 0) {
-          txb.addOutput(addressReceive, balance);
         } else {
           throw Exception('Invalid Transaction');
         }
