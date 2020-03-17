@@ -71,36 +71,19 @@ class BTC implements Coin {
           });
         });
 
-        if (price == 0 && fee == 0) {
-          txb.addOutput(addressReceive, balance);
-        } else if (price != 0 || fee != 0) {
+        if (price != 0 && fee != 0) {
           if (balance >= (price + fee)) {
             final rcBls = balance - (price + fee);
             txb.addOutput(address, price);
             txb.addOutput(addressReceive, rcBls);
             price = 0;
             fee = 0;
-          } else if (balance >= price && price != 0) {
-            txb.addOutput(address, price);
-            price = 0;
-            final diff = balance - price;
-            if (diff > fee) {
-              txb.addOutput(addressReceive, diff);
-              fee = 0;
-            } else {
-              fee = fee - diff;
-            }
-          } else if (fee > 0 && price == 0) {
-            if (balance > fee) {
-              txb.addOutput(addressReceive, balance - fee);
-              fee = 0;
-            } else {
-              fee = fee - balance;
-            }
           } else {
             txb.addOutput(address, balance);
             price = price - balance;
           }
+        } else if (price == 0 && fee == 0) {
+          txb.addOutput(addressReceive, balance);
         } else {
           throw Exception('Invalid Transaction');
         }
