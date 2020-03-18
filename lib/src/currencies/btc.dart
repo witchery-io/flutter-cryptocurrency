@@ -9,16 +9,17 @@ class BTC implements Coin {
   HDWallet root;
   IconData icon = FontAwesomeIcons.bitcoin;
   final name = 'btc';
-  final int accountIndex;
   final isActive = true;
-  final _basePath = "0'/0'/0";
+  final _coinType = "0'";
+  final int account;
+  final _change = '0';
   final String network;
   final Map<int, Address> _cacheAddresses = {};
 
-  BTC(this.node, {@required this.accountIndex, @required this.network}) {
+  BTC(this.node, {@required this.account, @required this.network}) {
     root = HDWallet.fromBase58(node.toBase58(),
-        network: network == 'main' ? bitcoin : testnet)
-        .derivePath(_basePath);
+            network: network == 'main' ? bitcoin : testnet)
+        .derivePath("$_coinType/$account'/$_change");
   }
 
   @override

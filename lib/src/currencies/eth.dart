@@ -8,14 +8,15 @@ class ETH implements Coin {
   bip32.BIP32 root;
   IconData icon = FontAwesomeIcons.ethereum;
   final name = 'eth';
-  final int accountIndex;
   final isActive = false;
-  final _basePath = "60'/0'/0";
+  final _coinType = "60'";
+  final int account;
+  final _change = '0';
   final String network;
   final Map<int, Address> _cacheAddresses = {};
 
-  ETH(this.node, {@required this.accountIndex, @required this.network}) {
-    root = node.derivePath("$_basePath");
+  ETH(this.node, {@required this.account, @required this.network}) {
+    root = node.derivePath("$_coinType/$account'/$_change");
   }
 
   @override

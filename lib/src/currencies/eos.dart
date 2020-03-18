@@ -8,14 +8,15 @@ class EOS implements Coin {
   bip32.BIP32 root;
   IconData icon = FontAwesomeIcons.coins;
   final name = 'eos';
-  final int accountIndex;
   final isActive = false;
-  final _basePath = "194'/0'/0";
+  final _coinType = "194'";
+  final int account;
+  final _change = '0';
   final String network;
   final Map<int, Address> _cacheAddresses = {};
 
-  EOS(this.node, {@required this.accountIndex, @required this.network}) {
-    root = node.derivePath("$_basePath");
+  EOS(this.node, {@required this.account, @required this.network}) {
+    root = node.derivePath("$_coinType/$account'/$_change");
   }
 
   @override

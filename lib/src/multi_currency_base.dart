@@ -29,15 +29,18 @@ class MultiCurrency {
     switch (type) {
       case Currency.BTC:
         if (!_cache.containsKey(Currency.BTC))
-          _cache[Currency.BTC] = BTC(_node, accountIndex: accIndex, network: network);
+          _cache[Currency.BTC] =
+              BTC(_node, account: accIndex, network: network);
         break;
       case Currency.ETH:
         if (!_cache.containsKey(Currency.ETH))
-          _cache[Currency.ETH] = ETH(_node, accountIndex: accIndex, network: network);
+          _cache[Currency.ETH] =
+              ETH(_node, account: accIndex, network: network);
         break;
       case Currency.EOS:
         if (!_cache.containsKey(Currency.EOS))
-          _cache[Currency.EOS] = EOS(_node, accountIndex: accIndex, network: network);
+          _cache[Currency.EOS] =
+              EOS(_node, account: accIndex, network: network);
         break;
     }
 
@@ -46,9 +49,8 @@ class MultiCurrency {
     return _cache[type];
   }
 
-  Future<List<Coin>> get getCurrencies => Future.value(Currency.values
-      .map((curr) => _getCurrency(curr, accIndex: 0))
-      .toList());
+  Future<List<Coin>> get getDefCurrencies => Future.value(
+      Currency.values.map((curr) => _getCurrency(curr, accIndex: 0)).toList());
 
   Future<List<Coin>> currenciesByAccount(int accountIndex) =>
       Future.value(Currency.values
