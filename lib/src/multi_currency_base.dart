@@ -16,7 +16,7 @@ class MultiCurrency {
   MultiCurrency(this.mnemonic, {this.network = 'testnet'})
       : assert(mnemonic != null) {
     if (!bip39.validateMnemonic(mnemonic))
-      throw Exception('Mnemonic is not valid.');
+      throw Exception('Mnemonic is not valid');
 
     final seed = bip39.mnemonicToSeed(mnemonic);
     _node = bip32.BIP32
@@ -40,7 +40,7 @@ class MultiCurrency {
         break;
     }
 
-    if (!_cache.containsKey(type)) throw Exception('Ups something is wrong.');
+    if (!_cache.containsKey(type)) throw Exception('Ups something is wrong');
 
     return _cache[type];
   }
