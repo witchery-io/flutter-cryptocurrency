@@ -26,14 +26,11 @@ class ETH implements Coin {
   Future<List> addressList() => Future.value(_cacheAddresses.values.toList());
 
   @override
-  Address getAddressByIndex(int index) {
-    return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
-  }
+  Address getAddressByIndex(int index) =>
+      _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
 
   @override
-  transactionBuilder({fee, price, address, addressReceive, data}) {
-    return null;
-  }
+  transactionBuilder({fee, price, address, addressReceive, data}) => null;
 }
 
 class EthAddress implements Address {

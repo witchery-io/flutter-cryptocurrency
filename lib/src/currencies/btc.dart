@@ -16,7 +16,7 @@ class BTC implements Coin {
 
   BTC(this.node, {this.network = 'testnet'}) {
     root = HDWallet.fromBase58(node.toBase58(),
-            network: network == 'testnet' ? testnet : bitcoin)
+        network: network == 'testnet' ? testnet : bitcoin)
         .derivePath(_basePath);
   }
 
@@ -37,9 +37,8 @@ class BTC implements Coin {
   Future<List> addressList() => Future.value(_cacheAddresses.values.toList());
 
   @override
-  Address getAddressByIndex(int index) {
-    return _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
-  }
+  Address getAddressByIndex(int index) =>
+      _cacheAddresses.containsKey(index) ? _cacheAddresses[index] : null;
 
   @override
   transactionBuilder({fee, price, address, addressReceive, data}) {
