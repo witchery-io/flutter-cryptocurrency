@@ -1,5 +1,6 @@
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:flutter/cupertino.dart';
 
 import '../multi_currency.dart';
 import 'currencies/currencies.dart';
@@ -13,30 +14,30 @@ class MultiCurrency {
   final String network;
   final _derPath = "m/44'";
 
-  MultiCurrency(this.mnemonic, {this.network = 'testnet'})
+  MultiCurrency(this.mnemonic, {@required this.network})
       : assert(mnemonic != null) {
     if (!bip39.validateMnemonic(mnemonic))
       throw Exception('Mnemonic is not valid');
 
     final seed = bip39.mnemonicToSeed(mnemonic);
     _node = bip32.BIP32
-        .fromSeed(seed, network == 'testnet' ? testNet : mainNet)
+        .fromSeed(seed, network == 'main' ? mainNet : testNet)
         .derivePath(_derPath);
   }
 
-  Coin _getCurrency(Currency type) {
+  Coin _getCurrency(Currency type, {@required int accIndex}) {
     switch (type) {
       case Currency.BTC:
         if (!_cache.containsKey(Currency.BTC))
-          _cache[Currency.BTC] = BTC(_node, network: network);
+          _cache[Currency.BTC] = BTC(_node, accountIndex: accIndex, network: network);
         break;
       case Currency.ETH:
         if (!_cache.containsKey(Currency.ETH))
-          _cache[Currency.ETH] = ETH(_node, network: network);
+          _cache[Currency.ETH] = ETH(_node, accountIndex: accIndex, network: network);
         break;
       case Currency.EOS:
         if (!_cache.containsKey(Currency.EOS))
-          _cache[Currency.EOS] = EOS(_node, network: network);
+          _cache[Currency.EOS] = EOS(_node, accountIndex: accIndex, network: network);
         break;
     }
 
@@ -45,6 +46,12 @@ class MultiCurrency {
     return _cache[type];
   }
 
-  Future<List<Coin>> get getCurrencies =>
-      Future.value(Currency.values.map((curr) => _getCurrency(curr)).toList());
+  Future<List<Coin>> get getCurrencies => Future.value(Currency.values
+      .map((curr) => _getCurrency(curr, accIndex: 0))
+      .toList());
+
+  Future<List<Coin>> currenciesByAccount(int accountIndex) =>
+      Future.value(Currency.values
+          .map((curr) => _getCurrency(curr, accIndex: accountIndex))
+          .toList());
 }
