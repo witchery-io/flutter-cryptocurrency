@@ -31,7 +31,8 @@ class MultiCurrency {
           .toList());
 
   Coin _currency({@required int account, @required Currency type}) {
-    _cache.putIfAbsent("$account:${type.index}", () {
+    final key = "$account:${type.index}";
+    _cache.putIfAbsent(key, () {
       switch (type) {
         case Currency.BTC:
           return BTC(_node, account: account, network: network);
@@ -44,6 +45,6 @@ class MultiCurrency {
       }
     });
 
-    return _cache["$account:${type.index}"];
+    return _cache[key];
   }
 }
