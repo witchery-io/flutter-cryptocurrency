@@ -10,7 +10,7 @@ import 'networks.dart';
 class MultiCurrency {
   final String mnemonic;
   bip32.BIP32 _node;
-  Map<Currency, Coin> _cache = {};
+  Map _cache = {};
   final String network;
   final _derPath = "m/44'";
 
@@ -25,35 +25,25 @@ class MultiCurrency {
         .derivePath(_derPath);
   }
 
-  Coin _getCurrency(Currency type, {@required int accIndex}) {
-    switch (type) {
-      case Currency.BTC:
-        if (!_cache.containsKey(Currency.BTC))
-          _cache[Currency.BTC] =
-              BTC(_node, account: accIndex, network: network);
-        break;
-      case Currency.ETH:
-        if (!_cache.containsKey(Currency.ETH))
-          _cache[Currency.ETH] =
-              ETH(_node, account: accIndex, network: network);
-        break;
-      case Currency.EOS:
-        if (!_cache.containsKey(Currency.EOS))
-          _cache[Currency.EOS] =
-              EOS(_node, account: accIndex, network: network);
-        break;
-    }
-
-    if (!_cache.containsKey(type)) throw Exception('Ups something is wrong');
-
-    return _cache[type];
-  }
-
-  Future<List<Coin>> get getDefCurrencies => Future.value(
-      Currency.values.map((curr) => _getCurrency(curr, accIndex: 0)).toList());
-
-  Future<List<Coin>> currenciesByAccount(int accountIndex) =>
+  Future<List<Coin>> currenciesByAccount(int account) =>
       Future.value(Currency.values
-          .map((curr) => _getCurrency(curr, accIndex: accountIndex))
+          .map((curr) => _currency(type: curr, account: account))
           .toList());
+
+  Coin _currency({@required int account, @required Currency type}) {
+    _cache.putIfAbsent("$account:${type.index}", () {
+      switch (type) {
+        case Currency.BTC:
+          return BTC(_node, account: account, network: network);
+        case Currency.ETH:
+          return ETH(_node, account: account, network: network);
+        case Currency.EOS:
+          return EOS(_node, account: account, network: network);
+        default:
+          return null;
+      }
+    });
+
+    return _cache["$account:${type.index}"];
+  }
 }

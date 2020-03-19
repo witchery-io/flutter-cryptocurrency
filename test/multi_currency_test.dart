@@ -3,12 +3,49 @@ import 'package:multi_currency/src/currencies/currencies.dart';
 import 'package:multi_currency/src/multi_currency_base.dart';
 
 void main() {
+  test('multy account main net', () async {
+    final mc = MultiCurrency(
+        'limit boost flip evil regret shy alert always shine cabin unique angry',
+        network: 'main');
+
+    final list = await mc.currenciesByAccount(0);
+
+    list.forEach((coin) async {
+      if (coin is BTC) {
+        coin.generateAddresses(next: 20);
+        final addressList = await coin.addressList();
+        expect(addressList.first.address, '12JZXTX5peeEo9Me8D42PksUKLcGmDy9A2');
+      }
+    });
+
+    
+    final list2 = await mc.currenciesByAccount(1);
+
+    list2.forEach((coin) async {
+      if (coin is BTC) {
+        coin.generateAddresses(next: 20);
+        final addressList = await coin.addressList();
+        expect(addressList.first.address, '1GC2w2nEsgLhLNhCVLHHU4DGGHohLfdx6T');
+      }
+    });
+
+    final list3 = await mc.currenciesByAccount(2);
+
+    list3.forEach((coin) async {
+      if (coin is BTC) {
+        coin.generateAddresses(next: 20);
+        final addressList = await coin.addressList();
+        expect(addressList.first.address, '1E6hPVZTKBcgkFDLcWAetb8iCRDXJJJWAf');
+      }
+    });
+  });
+
   test('[BTC][ETH][EOS] transaction builder', () async {
     const mnemonic =
         'limit boost flip evil regret shy alert always shine cabin unique angry';
-    final mc = MultiCurrency(mnemonic);
+    final mc = MultiCurrency(mnemonic, network: 'x');
 
-    final curr = await mc.getCurrencies;
+    final curr = await mc.currenciesByAccount(0);
     curr.forEach((coin) {
       if (coin is BTC) {
         expect(coin.name, 'btc');
@@ -21,7 +58,8 @@ void main() {
           data: data,
         );
 
-        expect(broadcast, '0100000004198f97e9eab5b399d1e9c4f72e65bbdb982a5a029e1033542749faa5636dda88000000006b4830450221008de201d9f57997f8f15913c49d5c48e3bfb3f2eefe451eec5e45fa7405eed71a02204f25a3461aa85a6ae58dc917cb1e2f923a226b64091ae74275bf936d9cee549301210347826e3b53185da5417b07785053759fa7e5a3a54dce0cb5d5f3c64f9e7e1d8cffffffff922117b52989f2f9563eb37c06c67a17099a083d08b74ecdd742da6ea1b00420010000006b483045022100ed8b92eaa03cab280ab65592fc5f61f2540ec26cc0b9c16406e16c67878e4b1b02200147d574caa074be373d8c5ff38eb7107382dc1d01a744885638181c7b74a4e1012103b6b5cb0c90a8d5a70307da26b0b8e94b3b0100414b4dca16ce41beee80e5781bffffffffe1b4867309a981ae1253224e9b9164b02059ba70e738fb789c4a73191099e806010000006a4730440220348458dc6552074c7f9458768015fa107bddd19d88c76d2ba5b3a87ef49692c802204592c5052bf926bba26eee3ff3424b24d9763d563d9f3f3f4c75cd2cdb7d445f0121025306a0bc553acc676decc1ce3be3a2ee2559acf7b083255060f0e77f7180c16affffffff1c1301e53c4db937f2be0897677172d741c31bb3e5c3250fa344e9c31340866c010000006b4830450221009d59b56fad8e83c5bc4246b139a84efc6fb421444ff3c09a407bf6d632c6640d02205aba9c302a0081171a19a655d25c1ee252a5c7d4dc1a118f411ae37b5300ffaf012102d681dae008dc7ddeeffa641a8b7581b54c6f47989695e5c53ac6c5a2166abb2bffffffff05dee26b00000000001976a9143fe1b6b8540f8a59a869e636982d8c97ef32205388ac5abf1b00000000001976a9143fe1b6b8540f8a59a869e636982d8c97ef32205388ac335f1e00000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac10270000000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac10270000000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac00000000');
+        expect(broadcast,
+            '0100000004198f97e9eab5b399d1e9c4f72e65bbdb982a5a029e1033542749faa5636dda88000000006b4830450221008de201d9f57997f8f15913c49d5c48e3bfb3f2eefe451eec5e45fa7405eed71a02204f25a3461aa85a6ae58dc917cb1e2f923a226b64091ae74275bf936d9cee549301210347826e3b53185da5417b07785053759fa7e5a3a54dce0cb5d5f3c64f9e7e1d8cffffffff922117b52989f2f9563eb37c06c67a17099a083d08b74ecdd742da6ea1b00420010000006b483045022100ed8b92eaa03cab280ab65592fc5f61f2540ec26cc0b9c16406e16c67878e4b1b02200147d574caa074be373d8c5ff38eb7107382dc1d01a744885638181c7b74a4e1012103b6b5cb0c90a8d5a70307da26b0b8e94b3b0100414b4dca16ce41beee80e5781bffffffffe1b4867309a981ae1253224e9b9164b02059ba70e738fb789c4a73191099e806010000006a4730440220348458dc6552074c7f9458768015fa107bddd19d88c76d2ba5b3a87ef49692c802204592c5052bf926bba26eee3ff3424b24d9763d563d9f3f3f4c75cd2cdb7d445f0121025306a0bc553acc676decc1ce3be3a2ee2559acf7b083255060f0e77f7180c16affffffff1c1301e53c4db937f2be0897677172d741c31bb3e5c3250fa344e9c31340866c010000006b4830450221009d59b56fad8e83c5bc4246b139a84efc6fb421444ff3c09a407bf6d632c6640d02205aba9c302a0081171a19a655d25c1ee252a5c7d4dc1a118f411ae37b5300ffaf012102d681dae008dc7ddeeffa641a8b7581b54c6f47989695e5c53ac6c5a2166abb2bffffffff05dee26b00000000001976a9143fe1b6b8540f8a59a869e636982d8c97ef32205388ac5abf1b00000000001976a9143fe1b6b8540f8a59a869e636982d8c97ef32205388ac335f1e00000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac10270000000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac10270000000000001976a91429d5cc3c904769ae2aa912b2029c94398628337088ac00000000');
       } else if (coin is ETH) {
         expect(coin.name, 'eth');
       } else if (coin is EOS) {
