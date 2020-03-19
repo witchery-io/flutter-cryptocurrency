@@ -3,7 +3,7 @@ import 'package:multi_currency/src/currencies/currencies.dart';
 import 'package:multi_currency/src/multi_currency_base.dart';
 
 void main() {
-  test('test 1', () async {
+  test('smart address generation', () async {
     final mc = MultiCurrency(
         'limit boost flip evil regret shy alert always shine cabin unique angry',
         network: 'test');
