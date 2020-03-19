@@ -11,8 +11,11 @@ void main() {
     final list = mc.currenciesByAccount(0);
     list.forEach((coin) async {
       if (coin is BTC) {
-        final addresses = list.first.generateAddresses(0, 5);
-        expect(addresses[0].address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
+        final addresses1 = coin.generateAddresses(20, 35);
+        coin.generateAddresses(0, 5);
+        coin.generateAddresses(8, 15);
+
+        expect(addresses1[0].address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
       }
     });
   });
