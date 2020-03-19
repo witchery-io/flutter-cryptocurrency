@@ -11,9 +11,8 @@ void main() {
     final list = mc.currenciesByAccount(0);
     list.forEach((coin) async {
       if (coin is BTC) {
-        list.first.generateAddresses(0, 5);
-        final addressList = await coin.addressList();
-        expect(addressList.first.address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
+        final addresses = list.first.generateAddresses(0, 5);
+        expect(addresses[0].address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
       }
     });
 
@@ -35,11 +34,12 @@ void main() {
 
     final list = mc.currenciesByAccount(0);
 
+    print(list);
+    
     list.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(0, 20);
-        final addressList = await coin.addressList();
-        expect(addressList.first.address, '12JZXTX5peeEo9Me8D42PksUKLcGmDy9A2');
+        final addresses = coin.generateAddresses(0, 2);
+        expect(addresses[0].address, '12JZXTX5peeEo9Me8D42PksUKLcGmDy9A2');
       }
     });
 
@@ -47,9 +47,8 @@ void main() {
 
     list2.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(0, 20);
-        final addressList = await coin.addressList();
-        expect(addressList.first.address, '1GC2w2nEsgLhLNhCVLHHU4DGGHohLfdx6T');
+        final addresses = coin.generateAddresses(0, 2);
+        expect(addresses[0].address, '1GC2w2nEsgLhLNhCVLHHU4DGGHohLfdx6T');
       }
     });
 
@@ -57,9 +56,8 @@ void main() {
 
     list3.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(0, 20);
-        final addressList = await coin.addressList();
-        expect(addressList.first.address, '1E6hPVZTKBcgkFDLcWAetb8iCRDXJJJWAf');
+        final addresses = coin.generateAddresses(0, 2);
+        expect(addresses[0].address, '1E6hPVZTKBcgkFDLcWAetb8iCRDXJJJWAf');
       }
     });
   });
