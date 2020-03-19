@@ -21,6 +21,7 @@ class EOS implements Coin {
 
   @override
   generateAddresses(from, to) {
+    assert(to > from);
     return _cacheAddresses;
   }
 

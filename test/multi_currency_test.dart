@@ -9,10 +9,9 @@ void main() {
         network: 'test');
 
     final list = await mc.currenciesByAccount(0);
-    await list.first.addressList();
     list.forEach((coin) async {
       if (coin is BTC) {
-        list.first.generateAddresses(0, 20);
+        list.first.generateAddresses(0, 5);
         final addressList = await coin.addressList();
         expect(addressList.first.address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
       }
