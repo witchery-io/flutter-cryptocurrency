@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,7 +15,7 @@ class ETH implements Coin {
   final int account;
   final _change = '0';
   final String network;
-  final Map<int, Address> _cacheAddresses = {};
+  final _cacheAddresses = SplayTreeMap<int, Address>();
 
   ETH(this.node, {@required this.account, @required this.network}) {
     root = node.derivePath("$_coinType/$account'/$_change");

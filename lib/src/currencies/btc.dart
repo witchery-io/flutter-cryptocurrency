@@ -16,7 +16,7 @@ class BTC implements Coin {
   final int account;
   final _change = '0';
   final String network;
-  final SplayTreeMap<int, Address> _cacheAddresses = SplayTreeMap();
+  final _cacheAddresses = SplayTreeMap<int, Address>();
 
   BTC(this.node, {@required this.account, @required this.network}) {
     root = HDWallet.fromBase58(node.toBase58(),

@@ -3,6 +3,28 @@ import 'package:multi_currency/src/currencies/currencies.dart';
 import 'package:multi_currency/src/multi_currency_base.dart';
 
 void main() {
+  test(' ------ test 2 ------ ', () {
+    final mc = MultiCurrency(
+        'limit boost flip evil regret shy alert always shine cabin unique angry',
+        network: 'test');
+
+    final list = mc.currenciesByAccount(1);
+    list.forEach((coin) async {
+      if (coin is BTC) {
+        coin.generateAddresses(20, 35);
+        coin.generateAddresses(0, 5);
+        coin.generateAddresses(8, 15);
+
+        final addressList = await coin.addressList();
+
+        print(addressList[0].address);
+        
+//        expect(addresses1[0].address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
+      }
+    });
+    
+  });
+  
   test('smart address generation', () async {
     final mc = MultiCurrency(
         'limit boost flip evil regret shy alert always shine cabin unique angry',
