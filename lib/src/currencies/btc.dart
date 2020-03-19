@@ -23,7 +23,7 @@ class BTC implements Coin {
   }
 
   @override
-  Future<Map<int, Address>> generateAddresses(from, to) async {
+  Map<int, Address> generateAddresses(from, to) {
     assert(to > from);
     for (int i = from; i < to; i++) {
       _cacheAddresses.putIfAbsent(i, () {

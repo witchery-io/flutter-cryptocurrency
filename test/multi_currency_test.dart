@@ -8,12 +8,22 @@ void main() {
         'limit boost flip evil regret shy alert always shine cabin unique angry',
         network: 'test');
 
-    final list = await mc.currenciesByAccount(0);
+    final list = mc.currenciesByAccount(0);
     list.forEach((coin) async {
       if (coin is BTC) {
         list.first.generateAddresses(0, 5);
         final addressList = await coin.addressList();
         expect(addressList.first.address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
+      }
+    });
+
+
+    final list1 = mc.currenciesByAccount(1);
+
+    list1.forEach((coin) async {
+      if (coin is BTC) {
+        final x = list.first.generateAddresses(0, 5);
+        print(x);
       }
     });
   });
@@ -23,7 +33,7 @@ void main() {
         'limit boost flip evil regret shy alert always shine cabin unique angry',
         network: 'main');
 
-    final list = await mc.currenciesByAccount(0);
+    final list = mc.currenciesByAccount(0);
 
     list.forEach((coin) async {
       if (coin is BTC) {
@@ -33,7 +43,7 @@ void main() {
       }
     });
 
-    final list2 = await mc.currenciesByAccount(1);
+    final list2 = mc.currenciesByAccount(1);
 
     list2.forEach((coin) async {
       if (coin is BTC) {
@@ -43,7 +53,7 @@ void main() {
       }
     });
 
-    final list3 = await mc.currenciesByAccount(2);
+    final list3 = mc.currenciesByAccount(2);
 
     list3.forEach((coin) async {
       if (coin is BTC) {
@@ -59,7 +69,7 @@ void main() {
         'limit boost flip evil regret shy alert always shine cabin unique angry';
     final mc = MultiCurrency(mnemonic, network: 'x');
 
-    final curr = await mc.currenciesByAccount(0);
+    final curr = mc.currenciesByAccount(0);
     curr.forEach((coin) {
       if (coin is BTC) {
         expect(coin.name, 'btc');

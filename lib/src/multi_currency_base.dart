@@ -25,10 +25,9 @@ class MultiCurrency {
         .derivePath(_derPath);
   }
 
-  Future<List<Coin>> currenciesByAccount(int account) =>
-      Future.value(Currency.values
-          .map((curr) => _currency(type: curr, account: account))
-          .toList());
+  List<Coin> currenciesByAccount(int account) => Currency.values
+      .map((curr) => _currency(type: curr, account: account))
+      .toList();
 
   Coin _currency({@required int account, @required Currency type}) {
     final key = "$account:${type.index}";

@@ -7,7 +7,7 @@ abstract class Coin {
 
   IconData icon;
 
-  generateAddresses(from, to);
+  Map<int, Address> generateAddresses(from, to);
 
   transactionBuilder(
       {@required fee,

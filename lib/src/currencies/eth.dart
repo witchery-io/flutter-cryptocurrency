@@ -20,7 +20,7 @@ class ETH implements Coin {
   }
 
   @override
-  generateAddresses(from, to) {
+  Map<int, Address> generateAddresses(from, to) {
     assert(to > from);
     return _cacheAddresses;
   }
