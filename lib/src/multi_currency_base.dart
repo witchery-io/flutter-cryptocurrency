@@ -10,7 +10,7 @@ import 'networks.dart';
 class MultiCurrency {
   final String mnemonic;
   bip32.BIP32 _node;
-  Map _cache = {};
+  Map<String, Coin> _cache = {};
   final String network;
   final _derPath = "m/44'";
 
@@ -44,6 +44,8 @@ class MultiCurrency {
       }
     });
 
+    print(_cache);
+    
     return _cache["$account:${type.index}"];
   }
 }
