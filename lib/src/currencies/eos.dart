@@ -20,7 +20,7 @@ class EOS implements Coin {
   }
 
   @override
-  Map<int, Address> generateAddresses({next}) {
+  generateAddresses({from, to}) {
     return _cacheAddresses;
   }
 

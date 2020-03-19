@@ -3,6 +3,22 @@ import 'package:multi_currency/src/currencies/currencies.dart';
 import 'package:multi_currency/src/multi_currency_base.dart';
 
 void main() {
+  test('test 1', () async {
+    final mc = MultiCurrency(
+        'limit boost flip evil regret shy alert always shine cabin unique angry',
+        network: 'test');
+
+    final list = await mc.currenciesByAccount(0);
+    await list.first.addressList();
+    list.forEach((coin) async {
+      if (coin is BTC) {
+        list.first.generateAddresses(from: 0, to: 20);
+        final addressList = await coin.addressList();
+        expect(addressList.first.address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
+      }
+    });
+  });
+
   test('multi account main net', () async {
     final mc = MultiCurrency(
         'limit boost flip evil regret shy alert always shine cabin unique angry',
@@ -12,7 +28,7 @@ void main() {
 
     list.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(next: 20);
+        coin.generateAddresses(from: 0, to: 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '12JZXTX5peeEo9Me8D42PksUKLcGmDy9A2');
       }
@@ -22,7 +38,7 @@ void main() {
 
     list2.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(next: 20);
+        coin.generateAddresses(from: 0, to: 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '1GC2w2nEsgLhLNhCVLHHU4DGGHohLfdx6T');
       }
@@ -32,7 +48,7 @@ void main() {
 
     list3.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(next: 20);
+        coin.generateAddresses(from: 0, to: 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '1E6hPVZTKBcgkFDLcWAetb8iCRDXJJJWAf');
       }

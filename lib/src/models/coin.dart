@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 abstract class Coin {
   String get name;
+
   bool get isActive;
 
   IconData icon;
 
-  Map<int, Address> generateAddresses({@required int next});
+  generateAddresses({@required from, @required to});
 
   transactionBuilder(
       {@required fee,
