@@ -44,8 +44,6 @@ class MultiCurrency {
       }
     });
 
-    print(_cache);
-    
     return _cache["$account:${type.index}"];
   }
 }
