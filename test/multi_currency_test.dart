@@ -18,7 +18,6 @@ void main() {
       }
     });
 
-    
     final list2 = await mc.currenciesByAccount(1);
 
     list2.forEach((coin) async {
