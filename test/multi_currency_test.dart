@@ -50,10 +50,10 @@ void main() {
     });
   });
 
-  test('[BTC][ETH][EOS] transaction builder', () async {
+  test('btc transaction builder', () async {
     const mnemonic =
         'limit boost flip evil regret shy alert always shine cabin unique angry';
-    final mc = MultiCurrency(mnemonic, network: 'x');
+    final mc = MultiCurrency(mnemonic, network: 'test');
 
     final curr = mc.currenciesByAccount(0);
     curr.forEach((coin) {
