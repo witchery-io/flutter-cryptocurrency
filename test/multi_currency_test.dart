@@ -12,7 +12,7 @@ void main() {
     await list.first.addressList();
     list.forEach((coin) async {
       if (coin is BTC) {
-        list.first.generateAddresses(from: 0, to: 20);
+        list.first.generateAddresses(0, 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
       }
@@ -28,7 +28,7 @@ void main() {
 
     list.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(from: 0, to: 20);
+        coin.generateAddresses(0, 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '12JZXTX5peeEo9Me8D42PksUKLcGmDy9A2');
       }
@@ -38,7 +38,7 @@ void main() {
 
     list2.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(from: 0, to: 20);
+        coin.generateAddresses(0, 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '1GC2w2nEsgLhLNhCVLHHU4DGGHohLfdx6T');
       }
@@ -48,7 +48,7 @@ void main() {
 
     list3.forEach((coin) async {
       if (coin is BTC) {
-        coin.generateAddresses(from: 0, to: 20);
+        coin.generateAddresses(0, 20);
         final addressList = await coin.addressList();
         expect(addressList.first.address, '1E6hPVZTKBcgkFDLcWAetb8iCRDXJJJWAf');
       }

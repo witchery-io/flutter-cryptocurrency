@@ -7,7 +7,7 @@ abstract class Coin {
 
   IconData icon;
 
-  generateAddresses({@required from, @required to});
+  generateAddresses(from, to);
 
   transactionBuilder(
       {@required fee,
