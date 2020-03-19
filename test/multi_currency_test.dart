@@ -15,16 +15,6 @@ void main() {
         expect(addresses[0].address, 'mgpWpWc4dg5VaFqFqn2QDg5oBLCyh2oCXU');
       }
     });
-
-
-    final list1 = mc.currenciesByAccount(1);
-
-    list1.forEach((coin) async {
-      if (coin is BTC) {
-        final x = list.first.generateAddresses(0, 5);
-        print(x);
-      }
-    });
   });
 
   test('multi account main net', () async {
@@ -33,9 +23,6 @@ void main() {
         network: 'main');
 
     final list = mc.currenciesByAccount(0);
-
-    print(list);
-    
     list.forEach((coin) async {
       if (coin is BTC) {
         final addresses = coin.generateAddresses(0, 2);
@@ -44,7 +31,6 @@ void main() {
     });
 
     final list2 = mc.currenciesByAccount(1);
-
     list2.forEach((coin) async {
       if (coin is BTC) {
         final addresses = coin.generateAddresses(0, 2);
@@ -53,7 +39,6 @@ void main() {
     });
 
     final list3 = mc.currenciesByAccount(2);
-
     list3.forEach((coin) async {
       if (coin is BTC) {
         final addresses = coin.generateAddresses(0, 2);
