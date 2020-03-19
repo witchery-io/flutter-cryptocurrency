@@ -3,7 +3,7 @@ import 'package:multi_currency/src/currencies/currencies.dart';
 import 'package:multi_currency/src/multi_currency_base.dart';
 
 void main() {
-  test('multy account main net', () async {
+  test('multi account main net', () async {
     final mc = MultiCurrency(
         'limit boost flip evil regret shy alert always shine cabin unique angry',
         network: 'main');
