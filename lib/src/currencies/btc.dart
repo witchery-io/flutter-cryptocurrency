@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class BTC implements Coin {
   final int account;
   final _change = '0';
   final String network;
-  final Map<int, Address> _cacheAddresses = {};
+  final SplayTreeMap<int, Address> _cacheAddresses = SplayTreeMap();
 
   BTC(this.node, {@required this.account, @required this.network}) {
     root = HDWallet.fromBase58(node.toBase58(),
